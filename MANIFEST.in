@@ -31,8 +31,8 @@ recursive-exclude docs *
 exclude docs
 
 # Include the Requirements
-include src/requirements.txt
-recursive-include src/requirements *.txt
+include requirements.txt
+recursive-include requirements *.txt
 
 # Exclude Makefile
 exclude Makefile

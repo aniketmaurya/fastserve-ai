@@ -1,4 +1,4 @@
-from src.template import __version__
+from fastserve import __version__
 
 
 def test_version():
