@@ -139,3 +139,5 @@ lightning_logs/
 
 /data
 .DS_Store
+*.gguf
+*.ggml
