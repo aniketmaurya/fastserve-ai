@@ -1,4 +1,3 @@
-from .batching import BatchProcessor
 from typing import List
 
 from fastapi import FastAPI
@@ -14,15 +13,13 @@ class PromptRequest(BaseModel):
 
 
 app = FastAPI()
-llm = LlamaCppLLM()
-batch_processing = BatchProcessor(func=llm)
+llm = LlamaCppLLM(model_path="openhermes-2-mistral-7b.Q5_K_M.gguf")
 
 
 @app.post("/serve")
 def serve(prompt: PromptRequest):
-    batch_processing.process()
     result = llm(
-        prompt=prompt,
+        prompt=prompt.prompt,
         temperature=prompt.temperature,
         max_tokens=prompt.max_tokens,
         stop=prompt.stop,

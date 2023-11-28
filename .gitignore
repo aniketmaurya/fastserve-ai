@@ -138,3 +138,4 @@ lightning_logs/
 *.gif
 
 /data
+.DS_Store
