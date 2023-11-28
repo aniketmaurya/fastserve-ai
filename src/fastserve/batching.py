@@ -1,15 +1,10 @@
-from queue import Queue, Empty
-import time
-from threading import Thread
-from threading import Event
-from typing import Callable, List, Dict
 import random
+import time
 import uuid
-
-from typing import Any
 from dataclasses import dataclass, field
-import uuid
-from threading import Event
+from queue import Empty, Queue
+from threading import Event, Thread
+from typing import Any, Callable, Dict, List
 
 
 class BatchedQueue:
