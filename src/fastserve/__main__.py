@@ -1,5 +1,6 @@
 import uvicorn
 
-from .fastserve import app
+from .fastserve import FastServe
 
-uvicorn.run(app)
+serve = FastServe()
+serve.run_server()

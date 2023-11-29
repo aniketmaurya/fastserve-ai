@@ -6,6 +6,8 @@ from queue import Empty, Queue
 from threading import Event, Thread
 from typing import Any, Callable, Dict, List
 
+from loguru import logger
+
 
 class BatchedQueue:
     def __init__(self, timeout=1.0, bs=1):
@@ -100,21 +102,25 @@ class BatchProcessor:
         self._thread.start()
 
     def _process_queue(self):
-        print("Started processing")
+        logger.info("Started processing")
         while True:
             if self._cancel_signal.is_set():
-                print("Stopped batch processor")
+                logger.info("Stopped batch processor")
                 return
             t0 = time.time()
             batch: List[WaitedObject] = self._batched_queue.get()
+            logger.debug(batch)
             t1 = time.time()
-            # print(f"waited {t1-t0:.2f}s for batch")
+            logger.debug(f"waited {t1-t0:.2f}s for batch")
             if not batch:
-                # print("no batch")
+                logger.debug("no batch")
                 continue
             batch_items = [b.item for b in batch]
-            # print(batch_items)
+            logger.debug(batch_items)
             results = self.func(batch_items)
+            if not isinstance(results, list):
+                logger.error(f"returned results must be List but is {type(results)}")
+            logger.debug(results)
             for b, result in zip(batch, results):
                 b.set_result(result)
 
