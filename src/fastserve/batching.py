@@ -6,7 +6,9 @@ from queue import Empty, Queue
 from threading import Event, Thread
 from typing import Any, Callable, Dict, List
 
-from loguru import logger
+from logging import Logger, INFO
+
+logger = Logger(__name__, level=INFO)
 
 
 class BatchedQueue:
