@@ -2,16 +2,42 @@
 
 Machine Learning Serving focused on LLMs with simplicity as the top priority.
 
-## Install
+## Installation
 
-```
+```bash
 git clone https://github.com/aniketmaurya/fastserve.git
 cd fastserve
 pip install .
 ```
 
-## How to run?
+## Run locally
 
-```shell
+```bash
 python -m fastserve
 ```
+
+
+## Usage/Examples
+
+```python
+from fastserve import FastServe
+
+serve = FastServe()
+serve.run_server()
+```
+
+
+<!-- ## Demo
+
+Insert gif or link to demo -->
+
+
+<!-- ## FAQ
+
+#### Question 1
+
+Answer 1
+
+#### Question 2
+
+Answer 2 -->
