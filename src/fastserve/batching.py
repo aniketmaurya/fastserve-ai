@@ -139,8 +139,7 @@ class BatchProcessor:
     def cancel(self):
         logger.info("Terminating Batch Processor...")
         self._cancel_signal.set()
-        self._thread.terminate()
-        # self._thread.join()
+        self._thread.join()
         logger.info("Batch Processor terminated!")
 
     def signal_handler(self, sig, frame):
