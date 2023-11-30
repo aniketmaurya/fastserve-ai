@@ -23,11 +23,11 @@ python -m fastserve
 ```python
 from fastserve.models import FastServeSSD
 
-serve = FastServeSSD(device="cuda")
+serve = FastServeSSD(device="cuda", batch_size=4, timeout=1)
 serve.run_server()
 ```
 
-or, run `python -m fastserve.models --model ssd-1b` from terminal.
+or, run `python -m fastserve.models --model ssd-1b --batch_size 4 --timeout 1` from terminal.
 
 
 <!-- ## Demo
