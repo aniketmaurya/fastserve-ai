@@ -15,8 +15,11 @@ class PromptRequest(BaseModel):
 
 
 class FastServeSSD(FastServe):
-    def __init__(self, batch_size=2, timeout=0.5, device="cuda") -> None:
+    def __init__(
+        self, batch_size=2, timeout=0.5, device="cuda", num_inference_steps: int = 1
+    ) -> None:
         super().__init__(batch_size, timeout)
+        self.num_inference_steps = num_inference_steps
         self.input_schema = PromptRequest
         self.pipe = StableDiffusionXLPipeline.from_pretrained(
             "segmind/SSD-1B",
@@ -31,14 +34,16 @@ class FastServeSSD(FastServe):
         negative_prompts = [b.negative_prompt for b in batch]
 
         pil_images = self.pipe(
-            prompt=prompts, negative_prompt=negative_prompts, num_inference_steps=1
+            prompt=prompts,
+            negative_prompt=negative_prompts,
+            num_inference_steps=self.num_inference_steps,
         ).images
         image_bytes_list = []
         for pil_image in pil_images:
             image_bytes = io.BytesIO()
             pil_image.save(image_bytes, format="JPEG")
-            image_bytes_list.append(image_bytes)
+            image_bytes_list.append(image_bytes.getvalue())
         return [
-            StreamingResponse(image_bytes, media_type="image/jpeg")
+            StreamingResponse(iter([image_bytes]), media_type="image/jpeg")
             for image_bytes in image_bytes_list
         ]
