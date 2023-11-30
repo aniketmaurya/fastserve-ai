@@ -2,11 +2,10 @@ import random
 import time
 import uuid
 from dataclasses import dataclass, field
+from logging import INFO, Logger
 from queue import Empty, Queue
 from threading import Event, Thread
 from typing import Any, Callable, Dict, List
-
-from logging import Logger, INFO
 
 logger = Logger(__name__, level=INFO)
 
@@ -132,5 +131,7 @@ class BatchProcessor:
         return waited_obj
 
     def cancel(self):
+        logger.info("Terminating Batch Processor...")
         self._cancel_signal.set()
         self._thread.join()
+        logger.info("Batch Processor terminated!")
