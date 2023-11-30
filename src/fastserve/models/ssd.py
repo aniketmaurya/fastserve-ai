@@ -4,8 +4,9 @@ from typing import List
 import torch
 from diffusers import StableDiffusionXLPipeline
 from fastapi.responses import StreamingResponse
-from fastserve import BaseRequest, FastServe
 from pydantic import BaseModel
+
+from fastserve import BaseRequest, FastServe
 
 
 class PromptRequest(BaseModel):

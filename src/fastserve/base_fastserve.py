@@ -2,7 +2,7 @@ import logging
 from contextlib import asynccontextmanager
 from typing import Any, List
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 
 from .batching import BatchProcessor
@@ -39,8 +39,12 @@ class FastServe:
 
         @self._app.post(path="/endpoint")
         def api(request: INPUT_SCHEMA):
+            print("incoming request")
             wait_obj = self.batch_processing.process(request)
-            return wait_obj.get()
+            result = wait_obj.get()
+            if isinstance(result, Exception):
+                raise HTTPException()
+            return result
 
     def handle(self, batch: List[BaseRequest]):
         n = len(batch)

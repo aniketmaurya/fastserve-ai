@@ -119,7 +119,12 @@ class BatchProcessor:
             logger.info(f"Aggregated batch size {len(batch)} in {t1-t0:.2f}s")
             batch_items = [b.item for b in batch]
             logger.debug(batch_items)
-            results = self.func(batch_items)
+            try:
+                results = self.func(batch_items)
+            except Exception as e:
+                logger.error(f"Error while processing batch {batch}")
+                logger.error(e)
+                results = [e] * len(batch)
             if not isinstance(results, list):
                 logger.error(f"returned results must be List but is {type(results)}")
             logger.debug(results)
@@ -134,7 +139,8 @@ class BatchProcessor:
     def cancel(self):
         logger.info("Terminating Batch Processor...")
         self._cancel_signal.set()
-        self._thread.join()
+        self._thread.terminate()
+        # self._thread.join()
         logger.info("Batch Processor terminated!")
 
     def signal_handler(self, sig, frame):
