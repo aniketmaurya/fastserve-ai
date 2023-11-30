@@ -4,9 +4,8 @@ from typing import List
 import torch
 from diffusers import StableDiffusionXLPipeline
 from fastapi.responses import StreamingResponse
-from pydantic import BaseModel
-
 from fastserve import BaseRequest, FastServe
+from pydantic import BaseModel
 
 
 class PromptRequest(BaseModel):
@@ -16,7 +15,7 @@ class PromptRequest(BaseModel):
 
 class FastServeSSD(FastServe):
     def __init__(
-        self, batch_size=2, timeout=0.5, device="cuda", num_inference_steps: int = 1
+        self, batch_size=2, timeout=0.5, device="cuda", num_inference_steps: int = 50
     ) -> None:
         super().__init__(batch_size, timeout)
         self.num_inference_steps = num_inference_steps

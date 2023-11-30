@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 from typing import Any, List
 
@@ -5,6 +6,12 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 from .batching import BatchProcessor
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[logging.StreamHandler()],
+)
 
 
 class BaseRequest(BaseModel):

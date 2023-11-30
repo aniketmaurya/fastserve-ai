@@ -1,13 +1,14 @@
+import logging
 import random
+import signal
 import time
 import uuid
 from dataclasses import dataclass, field
-from logging import INFO, Logger
 from queue import Empty, Queue
 from threading import Event, Thread
 from typing import Any, Callable, Dict, List
 
-logger = Logger(__name__, level=INFO)
+logger = logging.getLogger(__name__)
 
 
 class BatchedQueue:
@@ -98,24 +99,24 @@ class BatchProcessor:
         self.func = func
         self._event = Event()
         self._cancel_signal = Event()
+        signal.signal(signal.SIGINT, self.signal_handler)
 
-        self._thread = Thread(target=self._process_queue)
+        self._thread = Thread(target=self._process_queue, daemon=True)
         self._thread.start()
 
     def _process_queue(self):
         logger.info("Started processing")
         while True:
             if self._cancel_signal.is_set():
-                logger.info("Stopped batch processor")
                 return
             t0 = time.time()
             batch: List[WaitedObject] = self._batched_queue.get()
             logger.debug(batch)
             t1 = time.time()
-            logger.debug(f"waited {t1-t0:.2f}s for batch")
             if not batch:
                 logger.debug("no batch")
                 continue
+            logger.info(f"Aggregated batch size {len(batch)} in {t1-t0:.2f}s")
             batch_items = [b.item for b in batch]
             logger.debug(batch_items)
             results = self.func(batch_items)
@@ -135,3 +136,7 @@ class BatchProcessor:
         self._cancel_signal.set()
         self._thread.join()
         logger.info("Batch Processor terminated!")
+
+    def signal_handler(self, sig, frame):
+        logger.info("Received signal to terminate the thread.")
+        self.cancel()
