@@ -16,15 +16,18 @@ pip install .
 python -m fastserve
 ```
 
-
 ## Usage/Examples
 
-```python
-from fastserve import FastServe
+### Serve SSD-1B
 
-serve = FastServe()
+```python
+from fastserve.models import FastServeSSD
+
+serve = FastServeSSD(device="cuda")
 serve.run_server()
 ```
+
+or, run `python -m fastserve.models --model ssd-1b` from terminal.
 
 
 <!-- ## Demo
