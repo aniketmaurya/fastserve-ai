@@ -3,7 +3,6 @@ from typing import List
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-
 from vllm import LLM, SamplingParams
 
 tensor_parallel_size = int(os.environ.get("DEVICES", "1"))
