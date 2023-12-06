@@ -6,7 +6,7 @@ from diffusers import StableDiffusionXLPipeline
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-from fastserve import BaseRequest, FastServe
+from fastserve import FastServe
 
 
 class PromptRequest(BaseModel):

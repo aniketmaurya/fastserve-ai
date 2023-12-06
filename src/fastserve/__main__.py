@@ -1,5 +1,3 @@
-import uvicorn
-
 from .base_fastserve import FastServe
 
 serve = FastServe()

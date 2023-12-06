@@ -1,4 +1,3 @@
-import requests
 from locust import HttpUser, task
 
 headers = {

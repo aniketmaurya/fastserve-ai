@@ -1,7 +1,6 @@
 import argparse
 
 from fastserve.utils import get_default_device
-
 from .ssd import FastServeSSD
 
 parser = argparse.ArgumentParser(description="Serve models with FastServe")
@@ -21,7 +20,6 @@ parser.add_argument(
     required=False,
     help="Timeout to aggregate maximum batch size",
 )
-
 
 args = parser.parse_args()
 

@@ -1,9 +1,10 @@
+import logging
 import os
-from pathlib import Path
 from typing import Any
 
 from llama_cpp import Llama
-from loguru import logger
+
+logger = logging.getLogger(__name__)
 
 # https://huggingface.co/TheBloke/OpenHermes-2-Mistral-7B-GGUF
 DEFAULT_MODEL = "openhermes-2-mistral-7b.Q6_K.gguf"

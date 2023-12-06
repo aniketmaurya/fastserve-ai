@@ -1,12 +1,10 @@
 import logging
-import random
 import signal
 import time
-import uuid
 from dataclasses import dataclass, field
 from queue import Empty, Queue
 from threading import Event, Thread
-from typing import Any, Callable, Dict, List
+from typing import Any, Callable, List
 
 logger = logging.getLogger(__name__)
 
@@ -116,7 +114,7 @@ class BatchProcessor:
             if not batch:
                 logger.debug("no batch")
                 continue
-            logger.info(f"Aggregated batch size {len(batch)} in {t1-t0:.2f}s")
+            logger.info(f"Aggregated batch size {len(batch)} in {t1 - t0:.2f}s")
             batch_items = [b.item for b in batch]
             logger.debug(batch_items)
             try:
