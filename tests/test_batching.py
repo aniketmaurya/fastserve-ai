@@ -1,14 +1,16 @@
+import random
+
 from fastserve.batching import BatchProcessor
 
 
 def fake_ml_api(X):
-    n = len(X)
     # print(f"{n} items")
     for i in range(1000):
         for j in range(1000):
             for k in range(50):
-                l = i / 1000 * j / 1000
-    return [x + l for x in X]
+                pass
+
+    return [x * random.randint(0, 10) for x in X]
 
 
 def test_batch_processor():

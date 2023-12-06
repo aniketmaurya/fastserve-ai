@@ -83,7 +83,13 @@ class WaitedObject:
         return self.result
 
     def __repr__(self) -> str:
-        return f"WaitedOjb({dict(item=self.item, completed=self.completed, result=self.result, completion_time=self.completion_time)})"
+        d = dict(
+            item=self.item,
+            completed=self.completed,
+            result=self.result,
+            completion_time=self.completion_time,
+        )
+        return f"WaitedOjb({d})"
 
 
 class BatchProcessor:

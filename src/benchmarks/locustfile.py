@@ -13,6 +13,5 @@ class FastServePerfUser(HttpUser):
             "prompt": "An astronaut riding a green horse",
             "negative_prompt": "ugly, blurry, poor quality",
         }
-        base_url = self.client.base_url
         response = self.client.post("/endpoint", headers=headers, json=data)
         response.raise_for_status()
