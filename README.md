@@ -1,6 +1,6 @@
 # FastServe
 
-Machine Learning Serving focused on LLMs with simplicity as the top priority.
+Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
 
 ## Installation
 
