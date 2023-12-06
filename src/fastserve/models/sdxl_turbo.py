@@ -1,8 +1,10 @@
+# Note that this model is not commercially licensed
 import io
+import logging
 from typing import List
 
 import torch
-from diffusers import StableDiffusionXLPipeline
+from diffusers import AutoPipelineForText2Image
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
@@ -14,18 +16,19 @@ class PromptRequest(BaseModel):
     negative_prompt: str = "ugly, blurry, poor quality"
 
 
-class ServeSSD1B(FastServe):
+class SDXLTurboServe(FastServe):
     def __init__(
-        self, batch_size=1, timeout=0.0, device="cuda", num_inference_steps: int = 50
+        self, batch_size=1, timeout=0.0, device="cuda", num_inference_steps: int = 1
     ) -> None:
         super().__init__(batch_size, timeout)
+        if num_inference_steps > 1:
+            logging.warning(
+                "It is recommended to use inference_steps=1 for SDXL Turbo model."
+            )
         self.num_inference_steps = num_inference_steps
         self.input_schema = PromptRequest
-        self.pipe = StableDiffusionXLPipeline.from_pretrained(
-            "segmind/SSD-1B",
-            torch_dtype=torch.float16,
-            use_safetensors=True,
-            variant="fp16",
+        self.pipe = AutoPipelineForText2Image.from_pretrained(
+            "stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16"
         )
         self.pipe.to(device)
 
@@ -37,7 +40,9 @@ class ServeSSD1B(FastServe):
             prompt=prompts,
             negative_prompt=negative_prompts,
             num_inference_steps=self.num_inference_steps,
+            guidance_scale=0.0,
         ).images
+
         image_bytes_list = []
         for pil_image in pil_images:
             image_bytes = io.BytesIO()

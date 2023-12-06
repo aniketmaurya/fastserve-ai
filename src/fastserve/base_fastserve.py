@@ -43,7 +43,8 @@ class FastServe:
             wait_obj = self.batch_processing.process(request)
             result = wait_obj.get()
             if isinstance(result, Exception):
-                raise HTTPException()
+                logging.error(result)
+                raise HTTPException("Error while processing your request!")
             return result
 
     def handle(self, batch: List[BaseRequest]):

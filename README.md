@@ -18,16 +18,29 @@ python -m fastserve
 
 ## Usage/Examples
 
-### Serve SSD-1B
+### Serve Mistral-7B with Llama-cpp
 
 ```python
-from fastserve.models import FastServeSSD
+from fastserve.models import ServeLlamaCpp
 
-serve = FastServeSSD(device="cuda", batch_size=4, timeout=1)
+model_path = "openhermes-2-mistral-7b.Q5_K_M.gguf"
+serve = ServeLlamaCpp(model_path=model_path,)
 serve.run_server()
 ```
 
-or, run `python -m fastserve.models --model ssd-1b --batch_size 4 --timeout 1` from terminal.
+or, run `python -m fastserve.models --model llama-cpp --model_path openhermes-2-mistral-7b.Q5_K_M.gguf` from terminal.
+
+
+### Serve SDXL Turbo
+
+```python
+from fastserve.models import ServeSSD1B
+
+serve = ServeSSD1B(device="cuda", batch_size=2, timeout=1)
+serve.run_server()
+```
+
+or, run `python -m fastserve.models --model sdxl-turbo --batch_size 2 --timeout 1` from terminal.
 
 
 <!-- ## Demo
