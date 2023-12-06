@@ -16,7 +16,7 @@ class PromptRequest(BaseModel):
     negative_prompt: str = "ugly, blurry, poor quality"
 
 
-class SDXLTurboServe(FastServe):
+class ServeSDXLTurbo(FastServe):
     def __init__(
         self, batch_size=1, timeout=0.0, device="cuda", num_inference_steps: int = 1
     ) -> None:

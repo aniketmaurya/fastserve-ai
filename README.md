@@ -24,19 +24,18 @@ python -m fastserve
 from fastserve.models import ServeLlamaCpp
 
 model_path = "openhermes-2-mistral-7b.Q5_K_M.gguf"
-serve = ServeLlamaCpp(model_path=model_path,)
+serve = ServeLlamaCpp(model_path=model_path, )
 serve.run_server()
 ```
 
 or, run `python -m fastserve.models --model llama-cpp --model_path openhermes-2-mistral-7b.Q5_K_M.gguf` from terminal.
 
-
 ### Serve SDXL Turbo
 
 ```python
-from fastserve.models import ServeSSD1B
+from fastserve.models import ServeSDXLTurbo
 
-serve = ServeSSD1B(device="cuda", batch_size=2, timeout=1)
+serve = ServeSDXLTurbo(device="cuda", batch_size=2, timeout=1)
 serve.run_server()
 ```
 

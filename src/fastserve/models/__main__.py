@@ -1,7 +1,7 @@
 import argparse
 
 from fastserve.utils import get_default_device
-from . import SDXLTurboServe
+from . import ServeSDXLTurbo
 from .llama_cpp import ServeLlamaCpp
 from .ssd import ServeSSD1B
 
@@ -38,7 +38,7 @@ device = args.device or get_default_device()
 if args.model == "ssd-1b":
     app = ServeSSD1B(device=device, timeout=args.timeout, batch_size=args.batch_size)
 elif args.model == "sdxl-turbo":
-    app = SDXLTurboServe(
+    app = ServeSDXLTurbo(
         device=device, timeout=args.timeout, batch_size=args.batch_size
     )
 
