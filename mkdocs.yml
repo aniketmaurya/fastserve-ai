@@ -60,7 +60,7 @@ plugins:
             show_source: false
 
 extra:
-  homepage: https://TEMPLATE_URL
+  homepage: https://github.com/aniketmaurya/fastserve
 
 nav:
   - Introduction: 'index.md'
