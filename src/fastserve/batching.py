@@ -52,7 +52,7 @@ class BatchedQueue:
 @dataclass
 class WaitedObject:
     item: Any = None
-    result: Any = None
+    _result: Any = None
     _event: Event = None
     created_at: float = field(default_factory=lambda: time.time())
     completed_at: float = None
@@ -61,13 +61,19 @@ class WaitedObject:
         self._event = Event()
 
     def set_result(self, result) -> None:
-        self.result = result
+        self._result = result
         self.completed_at = time.time()
         self._event.set()
 
     @property
     def completed(self) -> bool:
         return self._event.is_set()
+
+    @property
+    def result(self):
+        if isinstance(self._result, Exception):
+            raise self._result
+        return self._result
 
     @property
     def completion_time(self) -> str:
@@ -86,7 +92,7 @@ class WaitedObject:
         d = dict(
             item=self.item,
             completed=self.completed,
-            result=self.result,
+            result=self._result,
             completion_time=self.completion_time,
         )
         return f"WaitedOjb({d})"
