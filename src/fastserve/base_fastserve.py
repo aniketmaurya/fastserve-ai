@@ -1,8 +1,9 @@
 import logging
+from abc import abstractmethod
 from contextlib import asynccontextmanager
 from typing import Any, List
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 from .batching import BatchProcessor
@@ -42,14 +43,11 @@ class FastServe:
             print("incoming request")
             wait_obj = self.batch_processing.process(request)
             result = wait_obj.get()
-            if isinstance(result, Exception):
-                logging.error(result)
-                raise HTTPException("Error while processing your request!")
             return result
 
+    @abstractmethod
     def handle(self, batch: List[BaseRequest]):
-        n = len(batch)
-        return n * [0.5 * n]
+        raise NotImplementedError("You must implement handle to run a server.")
 
     def run_server(
         self,
