@@ -2,9 +2,9 @@ import argparse
 
 from fastserve.utils import get_default_device
 
-from . import ServeSDXLTurbo
-from .llama_cpp import ServeLlamaCpp
-from .ssd import ServeSSD1B
+from fastserve.models.sdxl_turbo import ServeSDXLTurbo
+from fastserve.models.llama_cpp import ServeLlamaCpp
+from fastserve.models.ssd import ServeSSD1B
 
 parser = argparse.ArgumentParser(description="Serve models with FastServe")
 parser.add_argument("--model", type=str, required=True, help="Name of the model")
