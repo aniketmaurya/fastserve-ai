@@ -56,3 +56,9 @@ class FastServe:
         import uvicorn
 
         uvicorn.run(self._app)
+
+    @property
+    def test_client(self):
+        from fastapi.testclient import TestClient
+
+        return TestClient(self._app)
