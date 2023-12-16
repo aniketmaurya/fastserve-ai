@@ -1,4 +1,4 @@
 """A Python Project"""
-from .base_fastserve import FastServe
+from .core import FastServe as FastServe
 
 __version__ = "0.0.1"
