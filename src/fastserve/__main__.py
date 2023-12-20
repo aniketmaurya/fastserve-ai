@@ -1,4 +1,6 @@
-from fastserve import FastServe
+from fastserve import BaseFastServe
+from fastserve.handler import DummyHandler
 
-serve = FastServe()
+handler = DummyHandler()
+serve = BaseFastServe(handler=handler)
 serve.run_server()

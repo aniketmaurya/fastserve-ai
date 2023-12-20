@@ -1,12 +1,11 @@
 import logging
-from abc import abstractmethod
 from contextlib import asynccontextmanager
-from typing import Any, List
 
 from fastapi import FastAPI
-from pydantic import BaseModel
 
 from .batching import BatchProcessor
+from .handler import BaseHandler
+from .utils import BaseRequest
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,15 +14,14 @@ logging.basicConfig(
 )
 
 
-class BaseRequest(BaseModel):
-    request: Any
-
-
-class FastServe:
-    def __init__(self, batch_size=2, timeout=0.5, input_schema=BaseRequest) -> None:
+class BaseFastServe:
+    def __init__(
+        self, handler: BaseHandler, batch_size=2, timeout=0.5, input_schema=BaseRequest
+    ) -> None:
         self.input_schema = input_schema
+        self.handler: BaseHandler = handler
         self.batch_processing = BatchProcessor(
-            func=self.handle, bs=batch_size, timeout=timeout
+            func=self.handler.handle, bs=batch_size, timeout=timeout
         )
 
         @asynccontextmanager
@@ -45,10 +43,6 @@ class FastServe:
             result = wait_obj.get()
             return result
 
-    @abstractmethod
-    def handle(self, batch: List[BaseRequest]):
-        raise NotImplementedError("You must implement handle to run a server.")
-
     def run_server(
         self,
     ):
@@ -62,3 +56,8 @@ class FastServe:
         from fastapi.testclient import TestClient
 
         return TestClient(self._app)
+
+
+class FastServe(BaseFastServe, BaseHandler):
+    def __init__(self, batch_size=2, timeout=0.5, input_schema=BaseRequest):
+        super().__init__(self, batch_size, timeout, input_schema)

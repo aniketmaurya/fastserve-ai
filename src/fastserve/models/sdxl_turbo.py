@@ -20,7 +20,7 @@ class ServeSDXLTurbo(FastServe):
     def __init__(
         self, batch_size=1, timeout=0.0, device="cuda", num_inference_steps: int = 1
     ) -> None:
-        super().__init__(batch_size, timeout)
+        super().__init__(self, batch_size, timeout)
         if num_inference_steps > 1:
             logging.warning(
                 "It is recommended to use inference_steps=1 for SDXL Turbo model."
