@@ -5,7 +5,7 @@ from typing import Callable
 from fastapi import FastAPI
 
 from .batching import BatchProcessor
-from .handler import BaseHandler
+from .handler import BaseHandler, ParallelHandler
 from .utils import BaseRequest
 
 logging.basicConfig(
@@ -58,6 +58,18 @@ class BaseFastServe:
 
 
 class FastServe(BaseFastServe, BaseHandler):
+    def __init__(self, batch_size=2, timeout=0.5, input_schema=None):
+        if input_schema is None:
+            input_schema = BaseRequest
+        super().__init__(
+            handle=self.handle,
+            batch_size=batch_size,
+            timeout=timeout,
+            input_schema=input_schema,
+        )
+
+
+class ParallelFastServe(BaseFastServe, ParallelHandler):
     def __init__(self, batch_size=2, timeout=0.5, input_schema=None):
         if input_schema is None:
             input_schema = BaseRequest
