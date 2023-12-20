@@ -1,12 +1,12 @@
 import logging
-from abc import abstractmethod
 from contextlib import asynccontextmanager
-from typing import Any, List
+from typing import Callable
 
 from fastapi import FastAPI
-from pydantic import BaseModel
 
 from .batching import BatchProcessor
+from .handler import BaseHandler, ParallelHandler
+from .utils import BaseRequest
 
 logging.basicConfig(
     level=logging.INFO,
@@ -15,13 +15,10 @@ logging.basicConfig(
 )
 
 
-class BaseRequest(BaseModel):
-    request: Any
-
-
-class FastServe:
-    def __init__(self, batch_size=2, timeout=0.5, input_schema=BaseRequest) -> None:
+class BaseFastServe:
+    def __init__(self, handle: Callable, batch_size, timeout, input_schema) -> None:
         self.input_schema = input_schema
+        self.handle: Callable = handle
         self.batch_processing = BatchProcessor(
             func=self.handle, bs=batch_size, timeout=timeout
         )
@@ -31,7 +28,7 @@ class FastServe:
             yield
             self.batch_processing.cancel()
 
-        self._app = FastAPI(lifespan=lifespan)
+        self._app = FastAPI(lifespan=lifespan, title="FastServe")
 
     def _serve(
         self,
@@ -44,10 +41,6 @@ class FastServe:
             wait_obj = self.batch_processing.process(request)
             result = wait_obj.get()
             return result
-
-    @abstractmethod
-    def handle(self, batch: List[BaseRequest]):
-        raise NotImplementedError("You must implement handle to run a server.")
 
     def run_server(
         self,
@@ -62,3 +55,27 @@ class FastServe:
         from fastapi.testclient import TestClient
 
         return TestClient(self._app)
+
+
+class FastServe(BaseFastServe, BaseHandler):
+    def __init__(self, batch_size=2, timeout=0.5, input_schema=None):
+        if input_schema is None:
+            input_schema = BaseRequest
+        super().__init__(
+            handle=self.handle,
+            batch_size=batch_size,
+            timeout=timeout,
+            input_schema=input_schema,
+        )
+
+
+class ParallelFastServe(BaseFastServe, ParallelHandler):
+    def __init__(self, batch_size=2, timeout=0.5, input_schema=None):
+        if input_schema is None:
+            input_schema = BaseRequest
+        super().__init__(
+            handle=self.handle,
+            batch_size=batch_size,
+            timeout=timeout,
+            input_schema=input_schema,
+        )

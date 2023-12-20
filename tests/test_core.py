@@ -26,3 +26,12 @@ def test_run_server():
     response = test_client.post("/endpoint", data=data)
     assert response.status_code == 200
     assert response.json() == 1
+
+
+def test_unprocessable_content():
+    serve = FakeServe()
+    serve._serve()
+    test_client = serve.test_client
+    data = {}  # wrong data format
+    response = test_client.post("/endpoint", data=data)
+    assert response.status_code == 422

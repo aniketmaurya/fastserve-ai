@@ -80,7 +80,10 @@ class WaitedObject:
         if self.completed:
             if isinstance(self._result, Exception):
                 raise self._result
+            return self._result
         self._event.wait(timeout)
+        if isinstance(self._result, Exception):
+            raise self._result
         return self._result
 
     def __repr__(self) -> str:
@@ -128,7 +131,7 @@ class BatchProcessor:
                 results = self.func(batch_items)
             except Exception as e:
                 logger.error(f"Error while processing batch {batch}")
-                logger.error(e)
+                logger.exception(e)
                 results = [e] * len(batch)
             if not isinstance(results, list):
                 logger.error(f"returned results must be List but is {type(results)}")
