@@ -14,7 +14,7 @@ DEFAULT_MODEL = "openhermes-2-mistral-7b.Q6_K.gguf"
 
 
 class PromptRequest(BaseModel):
-    prompt: str
+    prompt: str = "Llamas are cute animal"
     temperature: float = 1
     max_tokens: int = 200
     stop: List[str] = []
@@ -39,7 +39,7 @@ class ServeLlamaCpp(FastServe):
         *args,
         **kwargs,
     ):
-        super().__init__(self, batch_size, timeout, input_schema=PromptRequest)
+        super().__init__(batch_size, timeout, input_schema=PromptRequest)
 
         if not os.path.exists(model_path):
             raise FileNotFoundError(f"{model_path} not found.")

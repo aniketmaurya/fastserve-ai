@@ -9,10 +9,6 @@ from fastserve.utils import BaseRequest
 
 
 class BaseHandler:
-    def __init__(self):
-        super().__init__()
-        self.model = None
-
     def create_model(self):
         raise NotImplementedError("You must implement create_model.")
 

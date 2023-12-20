@@ -1,5 +1,6 @@
 import logging
 from contextlib import asynccontextmanager
+from typing import Callable
 
 from fastapi import FastAPI
 
@@ -15,13 +16,11 @@ logging.basicConfig(
 
 
 class BaseFastServe:
-    def __init__(
-        self, handler: BaseHandler, batch_size=2, timeout=0.5, input_schema=BaseRequest
-    ) -> None:
+    def __init__(self, handle: Callable, batch_size, timeout, input_schema) -> None:
         self.input_schema = input_schema
-        self.handler: BaseHandler = handler
+        self.handle: Callable = handle
         self.batch_processing = BatchProcessor(
-            func=self.handler.handle, bs=batch_size, timeout=timeout
+            func=self.handle, bs=batch_size, timeout=timeout
         )
 
         @asynccontextmanager
@@ -59,5 +58,12 @@ class BaseFastServe:
 
 
 class FastServe(BaseFastServe, BaseHandler):
-    def __init__(self, batch_size=2, timeout=0.5, input_schema=BaseRequest):
-        super().__init__(self, batch_size, timeout, input_schema)
+    def __init__(self, batch_size=2, timeout=0.5, input_schema=None):
+        if input_schema is None:
+            input_schema = BaseRequest
+        super().__init__(
+            handle=self.handle,
+            batch_size=batch_size,
+            timeout=timeout,
+            input_schema=input_schema,
+        )
