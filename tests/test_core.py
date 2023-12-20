@@ -28,7 +28,7 @@ def test_run_server():
     assert response.json() == 1
 
 
-def test_exception():
+def test_unprocessable_content():
     serve = FakeServe()
     serve._serve()
     test_client = serve.test_client
