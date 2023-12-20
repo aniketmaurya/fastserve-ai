@@ -22,4 +22,4 @@ def test_batch_processor():
     assert wait.completed
     assert isinstance(result, (int, float))
     p.cancel()
-    assert p._cancel_signal.is_set()
+    assert p._cancel_processing.is_set()

@@ -70,12 +70,6 @@ class WaitedObject:
         return self._event.is_set()
 
     @property
-    def result(self):
-        if isinstance(self._result, Exception):
-            raise self._result
-        return self._result
-
-    @property
     def completion_time(self) -> str:
         if self.completed_at:
             return f"{self.completed_at - self.created_at:.3f}s"
@@ -84,9 +78,10 @@ class WaitedObject:
 
     def get(self, timeout: float = None) -> Any:
         if self.completed:
-            return self.result
+            if isinstance(self._result, Exception):
+                raise self._result
         self._event.wait(timeout)
-        return self.result
+        return self._result
 
     def __repr__(self) -> str:
         d = dict(
@@ -107,8 +102,7 @@ class BatchProcessor:
     ):
         self._batched_queue = BatchedQueue(timeout=timeout, bs=bs)
         self.func = func
-        self._event = Event()
-        self._cancel_signal = Event()
+        self._cancel_processing = Event()
         signal.signal(signal.SIGINT, self.signal_handler)
 
         self._thread = Thread(target=self._process_queue, daemon=True)
@@ -117,7 +111,7 @@ class BatchProcessor:
     def _process_queue(self):
         logger.info("Started processing")
         while True:
-            if self._cancel_signal.is_set():
+            if self._cancel_processing.is_set():
                 return
             t0 = time.time()
             batch: List[WaitedObject] = self._batched_queue.get()
@@ -148,7 +142,7 @@ class BatchProcessor:
 
     def cancel(self):
         logger.info("Terminating Batch Processor...")
-        self._cancel_signal.set()
+        self._cancel_processing.set()
         self._thread.join()
         logger.info("Batch Processor terminated!")
 
