@@ -103,7 +103,7 @@ class BatchProcessor:
         self._batched_queue = BatchedQueue(timeout=timeout, bs=bs)
         self.func = func
         self._cancel_processing = Event()
-        signal.signal(signal.SIGINT, self.signal_handler)
+        signal.signal(signal.SIGINT, self.cancel)
 
         self._thread = Thread(target=self._process_queue, daemon=True)
         self._thread.start()
@@ -112,6 +112,7 @@ class BatchProcessor:
         logger.info("Started processing")
         while True:
             if self._cancel_processing.is_set():
+                logger.info("Stopped processing")
                 return
             t0 = time.time()
             batch: List[WaitedObject] = self._batched_queue.get()
@@ -136,16 +137,15 @@ class BatchProcessor:
                 b.set_result(result)
 
     def process(self, item: Any):
+        """Puts the `item` to Queue and consumes batch for processing."""
         waited_obj = WaitedObject(item=item)
         self._batched_queue.put(waited_obj)
         return waited_obj
 
-    def cancel(self):
+    def cancel(self, sig=None, frame=None):
+        """Cancel batch processing and act as signal handler."""
+        logger.warning("Received signal to terminate the thread.")
         logger.info("Terminating Batch Processor...")
         self._cancel_processing.set()
         self._thread.join()
         logger.info("Batch Processor terminated!")
-
-    def signal_handler(self, sig, frame):
-        logger.info("Received signal to terminate the thread.")
-        self.cancel()
