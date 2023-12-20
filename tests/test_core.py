@@ -1,15 +1,15 @@
 import pytest
-from fastserve import BaseFastServe
+from fastserve import FastServe
 from fastserve.core import BaseRequest
 
 
-class FakeServe(BaseFastServe):
+class FakeServe(FastServe):
     def handle(self, batch):
         return [1] * len(batch)
 
 
 def test_handle():
-    serve = BaseFastServe()
+    serve = FastServe()
     batch = [BaseRequest(request=1), BaseRequest(request=2)]
     with pytest.raises(NotImplementedError):
         serve.handle(batch)
