@@ -39,39 +39,24 @@ class ServeLlamaCpp(FastServe):
         *args,
         **kwargs,
     ):
-        super().__init__(batch_size, timeout, input_schema=PromptRequest)
-
         if not os.path.exists(model_path):
             raise FileNotFoundError(f"{model_path} not found.")
-        if lazy:
-            self.llm = None
-        else:
-            self.llm = Llama(
-                model_path=model_path,
-                main_gpu=main_gpu,
-                n_ctx=n_ctx,
-                verbose=False,
-                *args,
-                **kwargs,
-            )
+        self.llm = Llama(
+            model_path=model_path,
+            main_gpu=main_gpu,
+            n_ctx=n_ctx,
+            verbose=False,
+            *args,
+            **kwargs,
+        )
         self.n_ctx = n_ctx
         self.model_path = model_path
         self.main_gpu = main_gpu
         self.args = args
         self.kwargs = kwargs
+        super().__init__(batch_size, timeout, input_schema=PromptRequest)
 
     def __call__(self, prompt: str, *args: Any, **kwargs: Any) -> Any:
-        if self.llm is None:
-            logger.info("Initializing model")
-            self.llm = Llama(
-                model_path=self.model_path,
-                main_gpu=self.main_gpu,
-                n_ctx=self.n_ctx,
-                verbose=False,
-                *self.args,
-                **self.kwargs,
-            )
-
         result = self.llm(prompt=prompt, *args, **kwargs)
         logger.info(result)
         return result

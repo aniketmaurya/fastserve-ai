@@ -28,7 +28,7 @@ class BaseFastServe:
             yield
             self.batch_processing.cancel()
 
-        self._app = FastAPI(lifespan=lifespan)
+        self._app = FastAPI(lifespan=lifespan, title="FastServe")
 
     def _serve(
         self,
