@@ -41,6 +41,29 @@ serve.run_server()
 
 or, run `python -m fastserve.models --model sdxl-turbo --batch_size 2 --timeout 1` from terminal.
 
+### Serve Custom Model
+
+To serve a custom model, you will have to implement `handle` method for `FastServe` that processes a batch of inputs and
+returns the response as a list.
+
+```python
+from fastserve import FastServe
+
+class MyModelServing(FastServe):
+    def __init__(self):
+        super().__init__(batch_size=2, timeout=0.1)
+        self.model = create_model(...)
+
+    def handle(self, batch: List[BaseRequest]) -> List[float]:
+        inputs = [b.request for b in batch]
+        response = self.model(inputs)
+        return response
+
+app = MyModelServing()
+app.run_server()
+```
+
+You can run the above script in terminal and it will launch a FastAPI server for your custom model.
 
 <!-- ## Demo
 
