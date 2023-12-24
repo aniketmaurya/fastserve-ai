@@ -1,4 +1,4 @@
-name: MkDocs
+name: Deploy Docs
 on:
   push:
     branches:
@@ -11,5 +11,5 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-      - run: pip install -r docs/requirements.txt
+      - run: cp README.md docs/index.md && pip install -r docs/requirements.txt
       - run: mkdocs gh-deploy --force

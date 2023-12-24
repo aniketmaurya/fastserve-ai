@@ -3,11 +3,8 @@
 Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
 
 ## Installation
-
-```bash
-git clone https://github.com/aniketmaurya/fastserve.git
-cd fastserve
-pip install .
+```shell
+pip install git+https://github.com/aniketmaurya/fastserve.git@main
 ```
 
 ## Run locally
@@ -63,11 +60,24 @@ app = MyModelServing()
 app.run_server()
 ```
 
-You can run the above script in terminal and it will launch a FastAPI server for your custom model.
+You can run the above script in terminal, and it will launch a FastAPI server for your custom model.
 
-<!-- ## Demo
 
-Insert gif or link to demo -->
+## Contribute
+
+**Install in editable mode:**
+```shell
+git clone https://github.com/aniketmaurya/fastserve.git
+cd fastserve
+pip install -e .
+```
+
+**Create a new branch**
+```shell
+git checkout -b ＜new-branch＞
+```
+
+**Make your changes, commit and [create a PR](https://github.com/aniketmaurya/fastserve/compare).**
 
 
 <!-- ## FAQ
