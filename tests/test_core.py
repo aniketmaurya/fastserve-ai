@@ -20,7 +20,6 @@ def test_handle():
 
 def test_run_server():
     serve = FakeServe()
-    serve.register_router()
     test_client = serve.test_client
     data = BaseRequest(request=1).model_dump_json()
     response = test_client.post("/endpoint", data=data)
@@ -30,7 +29,6 @@ def test_run_server():
 
 def test_unprocessable_content():
     serve = FakeServe()
-    serve.register_router()
     test_client = serve.test_client
     data = {}  # wrong data format
     response = test_client.post("/endpoint", data=data)
