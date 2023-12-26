@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-class BaseFastServe:
+class BaseServe:
     def __init__(
         self, handle: Callable, batch_size, timeout, input_schema, response_schema
     ) -> None:
@@ -68,7 +68,7 @@ class BaseFastServe:
         return TestClient(self._app)
 
 
-class FastServe(BaseFastServe, BaseHandler):
+class FastServe(BaseServe, BaseHandler):
     def __init__(
         self, batch_size=2, timeout=0.5, input_schema=None, response_schema=None
     ):
@@ -83,7 +83,7 @@ class FastServe(BaseFastServe, BaseHandler):
         )
 
 
-class ParallelFastServe(BaseFastServe, ParallelHandler):
+class ParallelFastServe(BaseServe, ParallelHandler):
     def __init__(
         self, batch_size=2, timeout=0.5, input_schema=None, response_schema=None
     ):
