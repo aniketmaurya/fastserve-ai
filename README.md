@@ -38,6 +38,17 @@ serve.run_server()
 
 or, run `python -m fastserve.models --model sdxl-turbo --batch_size 2 --timeout 1` from terminal.
 
+### Face  Detection
+
+```python
+from fastserve.models import FaceDetection
+
+serve = FaceDetection(batch_size=2, timeout=1)
+serve.run_server()
+```
+
+or, run `python -m fastserve.models --model face-detection --batch_size 2 --timeout 1` from terminal.
+
 ### Serve Custom Model
 
 To serve a custom model, you will have to implement `handle` method for `FastServe` that processes a batch of inputs and

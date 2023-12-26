@@ -1,5 +1,6 @@
 import argparse
 
+from fastserve.models.face_reco import FaceDetection
 from fastserve.models.llama_cpp import ServeLlamaCpp
 from fastserve.models.sdxl_turbo import ServeSDXLTurbo
 from fastserve.models.ssd import ServeSSD1B
@@ -49,6 +50,12 @@ elif args.model == "llama-cpp":
         timeout=args.timeout,
         batch_size=args.batch_size,
     )
+elif args.model == "face-detection":
+    app = FaceDetection(
+        timeout=args.timeout,
+        batch_size=args.batch_size,
+    )
+
 else:
     raise Exception(f"FastServe.models doesn't implement model={args.model}")
 
