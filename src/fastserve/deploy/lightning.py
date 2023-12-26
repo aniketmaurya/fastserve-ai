@@ -1,4 +1,8 @@
-from lightning_sdk import Machine, Studio
+try:
+    from lightning_sdk import Machine, Studio
+except ModuleNotFoundError:
+    Machine = None
+    Studio = None
 
 
 def lightning_job(
@@ -36,6 +40,7 @@ if __name__ == "__main__":
         "--machine",
         type=Machine,
         required=False,
+        default="CPU",
         help="Lightning AI job plugin machine type",
     )
 
