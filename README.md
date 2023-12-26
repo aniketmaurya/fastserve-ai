@@ -63,6 +63,17 @@ app.run_server()
 You can run the above script in terminal, and it will launch a FastAPI server for your custom model.
 
 
+## Deploy
+
+### Lightning AI Studio ⚡️
+
+```shell
+python fastserve.deploy.lightning --filename main.py \
+    --user LIGHTNING_USERNAME \
+    --teamspace LIGHTNING_TEAMSPACE \
+    --machine "CPU"  # T4, A10G or A10G_X_4
+```
+
 ## Contribute
 
 **Install in editable mode:**
