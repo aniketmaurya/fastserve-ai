@@ -5,7 +5,7 @@ from typing import Any, List, Optional
 from llama_cpp import Llama
 from pydantic import BaseModel
 
-from fastserve.core import ParallelFastServe
+from fastserve.core import FastServe
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class ResponseModel(BaseModel):
     finished: bool  # Whether the whole request is finished.
 
 
-class ServeLlamaCpp(ParallelFastServe):
+class ServeLlamaCpp(FastServe):
     def __init__(
         self,
         model_path=DEFAULT_MODEL,

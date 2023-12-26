@@ -30,7 +30,7 @@ class BaseFastServe:
 
         self._app = FastAPI(lifespan=lifespan, title="FastServe")
 
-    def _serve(
+    def register_router(
         self,
     ):
         INPUT_SCHEMA = self.input_schema
@@ -45,10 +45,14 @@ class BaseFastServe:
     def run_server(
         self,
     ):
-        self._serve()
+        self.register_router()
         import uvicorn
 
         uvicorn.run(self._app)
+
+    @property
+    def app(self):
+        return self._app
 
     @property
     def test_client(self):
