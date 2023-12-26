@@ -2,11 +2,13 @@ from lightning_sdk import Machine, Studio
 
 
 def lightning_job(
+    user: str,
+    teamspace: str = "default",
     command="python main.py",
     machine=Machine.CPU,
 ):
     # Start the studio
-    s = Studio(name="fastserve", teamspace="dream-team", user="aniket")
+    s = Studio(name="fastserve", teamspace=teamspace, user=user, create_ok=True)
     print("starting Studio...")
     s.start()
 
@@ -26,8 +28,12 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Deploy FastServe")
     parser.add_argument("--filename", type=str, required=True, help="Python filename")
+    parser.add_argument("--user", type=str, required=True, help="Lightning AI username")
+    parser.add_argument(
+        "--teamspace", type=str, required=True, help="Lightning AI teamspace"
+    )
 
     args = parser.parse_args()
 
     command = f"python {args.filename}"
-    lightning_job(command=command)
+    lightning_job(command=command, user=args.user, teamspace=args.teamspace)
