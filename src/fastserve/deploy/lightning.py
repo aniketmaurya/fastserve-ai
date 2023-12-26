@@ -32,8 +32,16 @@ if __name__ == "__main__":
     parser.add_argument(
         "--teamspace", type=str, required=True, help="Lightning AI teamspace"
     )
+    parser.add_argument(
+        "--machine",
+        type=Machine,
+        required=False,
+        help="Lightning AI job plugin machine type",
+    )
 
     args = parser.parse_args()
 
     command = f"python {args.filename}"
-    lightning_job(command=command, user=args.user, teamspace=args.teamspace)
+    lightning_job(
+        command=command, user=args.user, teamspace=args.teamspace, machine=args.machine
+    )
