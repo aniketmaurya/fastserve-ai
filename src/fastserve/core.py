@@ -1,8 +1,9 @@
 import logging
 from contextlib import asynccontextmanager
-from typing import Callable
+from typing import Callable, Optional
 
 from fastapi import FastAPI
+from pydantic import BaseModel
 
 from .batching import BatchProcessor
 from .handler import BaseHandler, ParallelHandler
@@ -19,7 +20,12 @@ logger = logging.getLogger(__name__)
 
 class BaseServe:
     def __init__(
-        self, handle: Callable, batch_size, timeout, input_schema, response_schema
+        self,
+        handle: Callable,
+        batch_size: int,
+        timeout: float,
+        input_schema: Optional[BaseModel],
+        response_schema: Optional[BaseModel],
     ) -> None:
         self.input_schema = input_schema
         self.response_schema = response_schema
