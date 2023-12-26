@@ -5,12 +5,15 @@ from typing import Any, List, Optional
 from llama_cpp import Llama
 from pydantic import BaseModel
 
-from fastserve.core import ParallelFastServe
+from fastserve.core import FastServe, ParallelFastServe
 
 logger = logging.getLogger(__name__)
 
 # https://huggingface.co/TheBloke/OpenHermes-2-Mistral-7B-GGUF
 DEFAULT_MODEL = "openhermes-2-mistral-7b.Q6_K.gguf"
+
+FASTSERVE_PARALLEL_HANDLER = int(os.environ.get("FASTSERVE_PARALLEL_HANDLER", "0"))
+FastServeMode = ParallelFastServe if FASTSERVE_PARALLEL_HANDLER == 1 else FastServe
 
 
 class PromptRequest(BaseModel):
@@ -27,7 +30,7 @@ class ResponseModel(BaseModel):
     finished: bool  # Whether the whole request is finished.
 
 
-class ServeLlamaCpp(ParallelFastServe):
+class ServeLlamaCpp(FastServeMode):
     def __init__(
         self,
         model_path=DEFAULT_MODEL,
@@ -54,7 +57,12 @@ class ServeLlamaCpp(ParallelFastServe):
         self.main_gpu = main_gpu
         self.args = args
         self.kwargs = kwargs
-        super().__init__(batch_size, timeout, input_schema=PromptRequest)
+        super().__init__(
+            batch_size,
+            timeout,
+            input_schema=PromptRequest,
+            response_schema=ResponseModel,
+        )
 
     def __call__(self, prompt: str, *args: Any, **kwargs: Any) -> Any:
         result = self.llm(prompt=prompt, *args, **kwargs)
