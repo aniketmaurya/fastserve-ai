@@ -49,6 +49,19 @@ serve.run_server()
 
 or, run `python -m fastserve.models --model face-detection --batch_size 2 --timeout 1` from terminal.
 
+
+### Image Classification
+
+```python
+from fastserve.models import ServeImageClassification
+
+app = ServeImageClassification("resnet18", timeout=1, batch_size=4)
+app.run_server()
+```
+
+or, run `python -m fastserve.models --model image-classification --model_name resnet18 --batch_size 4 --timeout 1` from terminal.
+
+
 ### Serve Custom Model
 
 To serve a custom model, you will have to implement `handle` method for `FastServe` that processes a batch of inputs and

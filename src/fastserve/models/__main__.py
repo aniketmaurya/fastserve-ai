@@ -1,5 +1,6 @@
 import argparse
 
+from fastserve.models import ServeImageClassification
 from fastserve.models.face_reco import FaceDetection
 from fastserve.models.llama_cpp import ServeLlamaCpp
 from fastserve.models.sdxl_turbo import ServeSDXLTurbo
@@ -25,6 +26,13 @@ parser.add_argument(
 )
 
 parser.add_argument(
+    "--model_name",
+    type=str,
+    required=False,
+    help="Model name for image classification",
+)
+
+parser.add_argument(
     "--model_path",
     type=str,
     required=False,
@@ -41,6 +49,14 @@ if args.model == "ssd-1b":
 elif args.model == "sdxl-turbo":
     app = ServeSDXLTurbo(
         device=device, timeout=args.timeout, batch_size=args.batch_size
+    )
+
+elif args.model == "image-classification":
+    app = ServeImageClassification(
+        model_name=args.model_name,
+        device=device,
+        timeout=args.timeout,
+        batch_size=args.batch_size,
     )
 
 elif args.model == "llama-cpp":
