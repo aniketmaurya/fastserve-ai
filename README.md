@@ -2,6 +2,8 @@
 
 Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
 
+<iframe width="424" height="238" src="https://www.youtube.com/embed/GfcmyfPB9qY" title="How to serve your own GPT like LLM in 1 minute with FastServe/FastAPI." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
 ## Installation
 ```shell
 pip install git+https://github.com/aniketmaurya/fastserve.git@main
