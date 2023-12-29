@@ -6,9 +6,13 @@ Machine Learning Serving focused on GenAI & LLMs with simplicity as the top prio
 <iframe width="424" height="238" src="https://www.youtube.com/embed/GfcmyfPB9qY" title="How to serve your own GPT like LLM in 1 minute with FastServe/FastAPI." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
-<div align="center">
+<figure>
   <a href="https://www.youtube.com/watch?v=GfcmyfPB9qY"><img src="https://img.youtube.com/vi/GfcmyfPB9qY/0.jpg" alt="IMAGE ALT TEXT"></a>
-</div>
+  <figcaption>Fig.1 - Trulli, Puglia, Italy.</figcaption>
+
+<figure>
+
+
 
 ## Installation
 ```shell
