@@ -2,7 +2,12 @@
 
 Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
 
+> [![img_tag](https://img.youtube.com/vi/GfcmyfPB9qY/0.jpg)](https://www.youtube.com/watch?v=GfcmyfPB9qY)
+>
+> YouTube: How to serve your own GPT like LLM in 1 minute with FastServe
+
 ## Installation
+
 ```shell
 pip install git+https://github.com/aniketmaurya/fastserve.git@main
 ```
@@ -49,7 +54,6 @@ serve.run_server()
 
 or, run `python -m fastserve.models --model face-detection --batch_size 2 --timeout 1` from terminal.
 
-
 ### Image Classification
 
 ```python
@@ -59,8 +63,8 @@ app = ServeImageClassification("resnet18", timeout=1, batch_size=4)
 app.run_server()
 ```
 
-or, run `python -m fastserve.models --model image-classification --model_name resnet18 --batch_size 4 --timeout 1` from terminal.
-
+or, run `python -m fastserve.models --model image-classification --model_name resnet18 --batch_size 4 --timeout 1` from
+terminal.
 
 ### Serve Custom Model
 
@@ -69,6 +73,7 @@ returns the response as a list.
 
 ```python
 from fastserve import FastServe
+
 
 class MyModelServing(FastServe):
     def __init__(self):
@@ -80,12 +85,12 @@ class MyModelServing(FastServe):
         response = self.model(inputs)
         return response
 
+
 app = MyModelServing()
 app.run_server()
 ```
 
 You can run the above script in terminal, and it will launch a FastAPI server for your custom model.
-
 
 ## Deploy
 
@@ -101,6 +106,7 @@ python fastserve.deploy.lightning --filename main.py \
 ## Contribute
 
 **Install in editable mode:**
+
 ```shell
 git clone https://github.com/aniketmaurya/fastserve.git
 cd fastserve
@@ -108,6 +114,7 @@ pip install -e .
 ```
 
 **Create a new branch**
+
 ```shell
 git checkout -b ＜new-branch＞
 ```
