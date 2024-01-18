@@ -46,6 +46,7 @@ device = args.device or get_default_device()
 
 if args.model == "ssd-1b":
     app = ServeSSD1B(device=device, timeout=args.timeout, batch_size=args.batch_size)
+
 elif args.model == "sdxl-turbo":
     app = ServeSDXLTurbo(
         device=device, timeout=args.timeout, batch_size=args.batch_size

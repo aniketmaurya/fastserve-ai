@@ -25,12 +25,11 @@ class ServeSDXLTurbo(FastServe):
                 "It is recommended to use inference_steps=1 for SDXL Turbo model."
             )
         self.num_inference_steps = num_inference_steps
-        self.input_schema = PromptRequest
         self.pipe = AutoPipelineForText2Image.from_pretrained(
             "stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16"
         )
         self.pipe.to(device)
-        super().__init__(batch_size, timeout)
+        super().__init__(batch_size, timeout, input_schema=PromptRequest)
 
     def handle(self, batch: List[PromptRequest]) -> List[StreamingResponse]:
         prompts = [b.prompt for b in batch]
