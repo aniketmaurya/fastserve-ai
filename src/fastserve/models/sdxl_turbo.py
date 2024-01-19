@@ -1,7 +1,7 @@
 # Note that this model is not commercially licensed
 import io
 import logging
-from typing import List
+from typing import List, Optional
 
 import torch
 from diffusers import AutoPipelineForText2Image
@@ -31,6 +31,7 @@ class ServeSDXLTurbo(FastServe):
         self.pipe.to(device)
         super().__init__(batch_size, timeout, input_schema=PromptRequest)
 
+    @torch.inference_mode()
     def handle(self, batch: List[PromptRequest]) -> List[StreamingResponse]:
         prompts = [b.prompt for b in batch]
         negative_prompts = [b.negative_prompt for b in batch]
