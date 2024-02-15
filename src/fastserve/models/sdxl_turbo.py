@@ -1,7 +1,7 @@
 # Note that this model is not commercially licensed
 import io
 import logging
-from typing import List, Optional
+from typing import List
 
 import torch
 from diffusers import AutoPipelineForText2Image
