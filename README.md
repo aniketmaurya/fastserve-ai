@@ -45,7 +45,7 @@ or, run `python -m fastserve.models --model sdxl-turbo --batch_size 2 --timeout 
 
 This application comes with an UI. You can access it at [http://localhost:8000/ui] (http://localhost:8000/ui) .
 
-<img src="assets/sdxl-demo.jpg">
+<img src="assets/sdxl-demo.jpg" width=400 style="border: 1px solid #F2F3F5;">
 
 
 ### Face  Detection
