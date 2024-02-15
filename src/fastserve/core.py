@@ -3,6 +3,8 @@ from contextlib import asynccontextmanager
 from typing import Callable, Optional
 
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from .batching import BatchProcessor
@@ -26,6 +28,7 @@ class BaseServe:
         timeout: float,
         input_schema: Optional[BaseModel],
         response_schema: Optional[BaseModel],
+        ui_mount_static_files: Optional[dict] = {},
     ) -> None:
         self.input_schema = input_schema
         self.response_schema = response_schema
@@ -33,6 +36,7 @@ class BaseServe:
         self.batch_processing = BatchProcessor(
             func=self.handle, bs=batch_size, timeout=timeout
         )
+        self.ui_mount_static_files = ui_mount_static_files
 
         @asynccontextmanager
         async def lifespan(app: FastAPI):
@@ -55,6 +59,17 @@ class BaseServe:
             methods=["post"],
             response_model=response_schema,
         )
+        for path, directory in self.ui_mount_static_files.items():
+            static_files = StaticFiles(
+                directory=directory,
+            )
+            self._app.mount(path, static_files, name=path)
+        if self.ui_mount_static_files:
+            logger.info(f"Mounted UI routes: {self.ui_mount_static_files}")
+
+            @self._app.get("/ui")
+            def home():
+                return RedirectResponse("/static/index.html")
 
     @property
     def app(self):
@@ -76,7 +91,12 @@ class BaseServe:
 
 class FastServe(BaseServe, BaseHandler):
     def __init__(
-        self, batch_size=2, timeout=0.5, input_schema=None, response_schema=None
+        self,
+        batch_size=2,
+        timeout=0.5,
+        input_schema=None,
+        response_schema=None,
+        ui_mount_static_files={},
     ):
         if input_schema is None:
             input_schema = BaseRequest
@@ -86,6 +106,7 @@ class FastServe(BaseServe, BaseHandler):
             timeout=timeout,
             input_schema=input_schema,
             response_schema=response_schema,
+            ui_mount_static_files=ui_mount_static_files,
         )
 
 

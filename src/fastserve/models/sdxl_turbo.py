@@ -6,7 +6,6 @@ from typing import List
 import torch
 from diffusers import AutoPipelineForText2Image
 from fastapi.responses import StreamingResponse
-from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from fastserve import FastServe
@@ -31,23 +30,19 @@ class ServeSDXLTurbo(FastServe):
             "stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16"
         )
         self.pipe.to(device)
-        super().__init__(batch_size, timeout, input_schema=PromptRequest)
 
         # Mount the UI folder
         ui_path = get_ui_folder()
-        self._app.mount(
-            "/static",
-            StaticFiles(
-                directory=f"{ui_path}/dist",
-            ),
-            name="static",
-        )
-        self._app.mount(
-            "/assets",
-            StaticFiles(
-                directory=f"{ui_path}/dist/assets",
-            ),
-            name="assets",
+        ui_mount_static_files = {
+            "/static": f"{ui_path}/dist",
+            "/assets": f"{ui_path}/dist/assets",
+        }
+
+        super().__init__(
+            batch_size,
+            timeout,
+            input_schema=PromptRequest,
+            ui_mount_static_files=ui_mount_static_files,
         )
 
     @torch.inference_mode()
