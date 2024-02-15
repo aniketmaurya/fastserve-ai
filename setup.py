@@ -5,4 +5,5 @@ with open("requirements.txt") as f:
 
 setup(
     install_requires=required,
+    include_package_data=True,
 )

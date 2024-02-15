@@ -7,6 +7,9 @@ recursive-exclude __pycache__  *.py[cod] *.orig
 include *.md
 recursive-include assets *.png
 
+# include 
+recursive-include src/ui/dist *
+
 exclude app.py
 exclude .lightning
 exclude .lightningignore

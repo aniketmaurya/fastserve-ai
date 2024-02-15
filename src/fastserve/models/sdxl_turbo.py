@@ -6,9 +6,11 @@ from typing import List, Optional
 import torch
 from diffusers import AutoPipelineForText2Image
 from fastapi.responses import StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from fastserve import FastServe
+from fastserve.utils import get_ui_folder
 
 
 class PromptRequest(BaseModel):
@@ -30,6 +32,23 @@ class ServeSDXLTurbo(FastServe):
         )
         self.pipe.to(device)
         super().__init__(batch_size, timeout, input_schema=PromptRequest)
+
+        # Mount the UI folder
+        ui_path = get_ui_folder()
+        self._app.mount(
+            "/static",
+            StaticFiles(
+                directory=f"{ui_path}/dist",
+            ),
+            name="static",
+        )
+        self._app.mount(
+            "/assets",
+            StaticFiles(
+                directory=f"{ui_path}/dist/assets",
+            ),
+            name="assets",
+        )
 
     @torch.inference_mode()
     def handle(self, batch: List[PromptRequest]) -> List[StreamingResponse]:
