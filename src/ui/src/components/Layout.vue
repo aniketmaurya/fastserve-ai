@@ -4,18 +4,18 @@
         <template v-slot:prepend>
           <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         </template>
-  
+
         <v-app-bar-title>FastServe</v-app-bar-title>
         <v-spacer></v-spacer>
       </v-app-bar>
-  
+
       <v-navigation-drawer>
         <v-list-item link title="Applications" subtitle="Vuetify"></v-list-item>
         <v-divider></v-divider>
         <v-list-item link title="Image Generation" @click="handleNavItemSelect('Image Generation')"></v-list-item>
         <v-list-item link title="Chat with PDF" @click="handleNavItemSelect('Chat with PDF')"></v-list-item>
       </v-navigation-drawer>
-  
+
       <v-main>
         <v-card fluid>
           <template v-if="selectedNavItem === 'Image Generation'">
@@ -29,7 +29,7 @@
       </v-main>
     </v-layout>
   </template>
-  
+
 <script>
     import ImageCard from './ImageCard.vue';
     import ChatBot from './ChatBot.vue';
