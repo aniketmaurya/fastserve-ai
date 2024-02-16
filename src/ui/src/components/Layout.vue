@@ -32,13 +32,13 @@
   
 <script>
     import ImageCard from './ImageCard.vue';
-    import FileUploadCard from './FileUpload.vue';
+    import ChatBot from './ChatBot.vue';
 
     export default {
         name: "Layout",
         components: {
             ImageCard,
-            FileUploadCard,
+            ChatBot
         },
         data() {
             return {
