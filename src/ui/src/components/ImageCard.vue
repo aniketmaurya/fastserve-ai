@@ -9,10 +9,10 @@
                         type="text" placeholder="Image prompt"/>
                 </div>
 
-                <button type="button" @click="generateImage()"
-                    class="mt-4 w-full rounded-sm bg-black px-2 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+                <v-btn color="purple" block :loading="loading" @click="generateImage()"
+                    class="mt-4">
                     Generate
-                </button>
+                </v-btn>
             </div>
         </div>
     </div>
@@ -27,7 +27,8 @@ export default {
     data() {
         return {
             imagePath: sampleImageSrc,
-            inputPrompt: "dog in a frosty background, puppy eyes, cute, full of lights, 8K"
+            inputPrompt: "dog in a frosty background, puppy eyes, cute, full of lights, 8K",
+            loading: false,
         }
     },
     methods: {
@@ -37,6 +38,7 @@ export default {
             }
         },
         async postRequest(newPrompt) {
+            this.loading = true;
             try {
                 const response = await fetch('/endpoint', {
                     method: 'POST',
@@ -61,11 +63,14 @@ export default {
                 );
 
                 this.imagePath = responseDataUrl;
-                return responseDataUrl
+                this.loading = false;
+                return true;
             } catch (error) {
                 console.error('Error fetching data:', error);
+                this.loading = false;
                 // Handle error appropriately (e.g., show an error message to the user)
             }
+            return false;
         }
     }
 }

@@ -5,7 +5,7 @@ import ImageCard from './components/ImageCard.vue';
 
 <template>
   <h1 class="flex justify-center text-3xl font-bold underline">
-    SDXL Turbo
+    Image Generation
   </h1>
   <ImageCard/>
 </template>
