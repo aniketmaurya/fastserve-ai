@@ -1,14 +1,8 @@
-<script setup>
-import ImageCard from './components/ImageCard.vue';
-
-</script>
-
 <template>
-  <h1 class="flex justify-center text-3xl font-bold underline">
-    Image Generation
-  </h1>
-  <ImageCard/>
+  <Layout />
 </template>
 
-<style>
-</style>
+<script setup>
+  import Layout from './components/Layout.vue';
+
+</script>
