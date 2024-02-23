@@ -49,7 +49,7 @@ app = ServeVLLM("TinyLlama/TinyLlama-1.1B-Chat-v1.0")
 app.run_server()
 ```
 
-You can use the FastServe client that will automatically apply chat template for you - 
+You can use the FastServe client that will automatically apply chat template for you -
 
 ```python
 from fastserve.client import vLLMClient
