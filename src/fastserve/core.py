@@ -72,14 +72,19 @@ class BaseServe:
                 return RedirectResponse("/static/index.html")
 
     @property
-    def app(self):
+    def app(self) -> FastAPI:
         return self._app
 
     def run_server(
         self,
+        background: bool = False,
     ):
         import uvicorn
-
+        if background:
+            import threading
+            t = threading.Thread(target=uvicorn.run, args=(self.app,), daemon=True)
+            t.start()
+            return t
         uvicorn.run(self.app)
 
     @property
