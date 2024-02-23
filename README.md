@@ -26,7 +26,8 @@ python -m fastserve
 
 ## Usage/Examples
 
-### Serve Mistral-7B with Llama-cpp
+
+### Serve LLMs with Llama-cpp
 
 ```python
 from fastserve.models import ServeLlamaCpp
@@ -37,6 +38,17 @@ serve.run_server()
 ```
 
 or, run `python -m fastserve.models --model llama-cpp --model_path openhermes-2-mistral-7b.Q5_K_M.gguf` from terminal.
+
+
+### Serve vLLM
+
+```python
+from fastserve.models import ServeVLLM
+
+app = ServeVLLM("TinyLlama/TinyLlama-1.1B-intermediate-step-480k-1T")
+app.run_server()
+```
+
 
 ### Serve SDXL Turbo
 
