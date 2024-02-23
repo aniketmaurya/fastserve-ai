@@ -29,14 +29,11 @@ class ServeVLLM(FastServe):
         model,
         batch_size=1,
         timeout=0.0,
-        *args,
         **kwargs,
     ):
         from vllm import LLM
 
-        self.llm = LLM(model)
-        self.args = args
-        self.kwargs = kwargs
+        self.llm = LLM(model, **kwargs)
         super().__init__(
             batch_size,
             timeout,
