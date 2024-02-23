@@ -1,5 +1,6 @@
 import os
 from typing import Any
+
 from pydantic import BaseModel
 
 
@@ -24,23 +25,21 @@ def get_ui_folder():
     return path
 
 
-def download_file(url:str, dest:str):
+def download_file(url: str, dest: str):
     import requests
     from tqdm import tqdm
-    from huggingface_hub import HfApi, ModelFilter
-
 
     if dest is None:
         dest = os.path.abspath(os.path.basename(dest))
 
     response = requests.get(url, stream=True)
     response.raise_for_status()
-    total_size = int(response.headers.get('content-length', 0))
+    total_size = int(response.headers.get("content-length", 0))
     block_size = 1024
-    with open(dest, 'wb') as file, tqdm(
+    with open(dest, "wb") as file, tqdm(
         desc=dest,
         total=total_size,
-        unit='iB',
+        unit="iB",
         unit_scale=True,
         unit_divisor=1024,
     ) as bar:

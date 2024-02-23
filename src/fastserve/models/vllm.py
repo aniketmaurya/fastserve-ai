@@ -2,7 +2,6 @@ import logging
 import os
 from typing import Any, List, Optional
 
-from llama_cpp import Llama
 from pydantic import BaseModel
 
 from fastserve.core import FastServe
@@ -10,7 +9,6 @@ from fastserve.core import FastServe
 logger = logging.getLogger(__name__)
 
 DEFAULT_MODEL = "openhermes-2-mistral-7b.Q6_K.gguf"
-
 
 
 class PromptRequest(BaseModel):
@@ -37,11 +35,11 @@ class ServeVLLM(FastServe):
         *args,
         **kwargs,
     ):
-        from vllm import LLM, SamplingParams
+        from vllm import LLM
 
         if not os.path.exists(model_path):
             raise FileNotFoundError(f"{model_path} not found.")
-        
+
         self.llm = LLM(model_path)
         self.model_path = model_path
         self.args = args
@@ -56,7 +54,9 @@ class ServeVLLM(FastServe):
     def __call__(self, request: PromptRequest) -> Any:
         from vllm import SamplingParams
 
-        sampling_params = SamplingParams(temperature=request.temperature, top_p=request.top_p)
+        sampling_params = SamplingParams(
+            temperature=request.temperature, top_p=request.top_p
+        )
         result = self.llm(request.prompt, sampling_params=sampling_params)
         logger.info(result)
         return result
