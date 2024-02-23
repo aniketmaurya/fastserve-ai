@@ -1,13 +1,11 @@
 import logging
-import os
 from typing import Any, List, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 from fastserve.core import FastServe
 
 logger = logging.getLogger(__name__)
-
 
 
 class PromptRequest(BaseModel):
@@ -50,8 +48,9 @@ class ServeVLLM(FastServe):
         from vllm import SamplingParams
 
         sampling_params = SamplingParams(
-            temperature=request.temperature, top_p=request.top_p,
-            max_tokens=request.max_tokens
+            temperature=request.temperature,
+            top_p=request.top_p,
+            max_tokens=request.max_tokens,
         )
         result = self.llm.generate(request.prompt, sampling_params=sampling_params)
         logger.info(result)
