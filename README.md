@@ -8,6 +8,12 @@ Machine Learning Serving focused on GenAI & LLMs with simplicity as the top prio
 
 ## Installation
 
+**Stable:**
+```shell
+pip install FastServeAI
+```
+
+**Latest:**
 ```shell
 pip install git+https://github.com/aniketmaurya/fastserve.git@main
 ```
@@ -20,7 +26,8 @@ python -m fastserve
 
 ## Usage/Examples
 
-### Serve Mistral-7B with Llama-cpp
+
+### Serve LLMs with Llama-cpp
 
 ```python
 from fastserve.models import ServeLlamaCpp
@@ -31,6 +38,29 @@ serve.run_server()
 ```
 
 or, run `python -m fastserve.models --model llama-cpp --model_path openhermes-2-mistral-7b.Q5_K_M.gguf` from terminal.
+
+
+### Serve vLLM
+
+```python
+from fastserve.models import ServeVLLM
+
+app = ServeVLLM("TinyLlama/TinyLlama-1.1B-Chat-v1.0")
+app.run_server()
+```
+
+You can use the FastServe client that will automatically apply chat template for you -
+
+```python
+from fastserve.client import vLLMClient
+from rich import print
+
+client = vLLMClient("TinyLlama/TinyLlama-1.1B-Chat-v1.0")
+response = client.chat("Write a python function to resize image to 224x224", keep_context=True)
+# print(client.context)
+print(response["outputs"][0]["text"])
+```
+
 
 ### Serve SDXL Turbo
 
@@ -46,7 +76,7 @@ or, run `python -m fastserve.models --model sdxl-turbo --batch_size 2 --timeout 
 This application comes with an UI. You can access it at [http://localhost:8000/ui](http://localhost:8000/ui) .
 
 
-<img src="assets/sdxl.jpg" width=400 style="border: 1px solid #F2F3F5;">
+<img src="https://raw.githubusercontent.com/aniketmaurya/fastserve/main/assets/sdxl.jpg" width=400 style="border: 1px solid #F2F3F5;">
 
 
 ### Face  Detection
