@@ -80,8 +80,10 @@ class BaseServe:
         background: bool = False,
     ):
         import uvicorn
+
         if background:
             import threading
+
             t = threading.Thread(target=uvicorn.run, args=(self.app,), daemon=True)
             t.start()
             return t
