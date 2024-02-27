@@ -77,10 +77,12 @@ class BaseServe:
 
     def run_server(
         self,
+        *args,
+        **kwargs
     ):
         import uvicorn
 
-        uvicorn.run(self.app)
+        uvicorn.run(self.app, *args, **kwargs)
 
     @property
     def test_client(self):
