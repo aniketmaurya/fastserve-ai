@@ -154,7 +154,7 @@ docker-compose up --build
 
 This will build the Docker image and start your FastServe application in a container, making it accessible on the specified port.
 
-Note: We provide an example using face recognition. If you need to use other models, you will likely need to change the requirements.txt or the Dockerfile. Don't worry; this example is intended to serve as a quick start. Feel free to modify it as needed.
+> **Note:** We provide an example using face recognition. If you need to use other models, you will likely need to change the requirements.txt or the Dockerfile. Don't worry; this example is intended to serve as a quick start. Feel free to modify it as needed.
 
 ## Passing Arguments to Uvicorn in `run_server()`
 FastServe leverages Uvicorn, a lightning-fast ASGI server, to serve machine learning models, making FastServe highly efficient and scalable.
