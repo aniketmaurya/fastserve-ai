@@ -1,0 +1,11 @@
+version: '3'
+services:
+  api:
+    build: .
+    environment:
+      - BATCH_SIZE=2
+      - TIMEOUT = 1
+    volumes:
+      - .:/api
+    ports:
+      - "8000:8000"
