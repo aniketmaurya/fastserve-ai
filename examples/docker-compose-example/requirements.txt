@@ -1,0 +1,3 @@
+git+https://github.com/aniketmaurya/fastserve-ai.git
+torch
+face-recognition
