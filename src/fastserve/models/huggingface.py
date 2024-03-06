@@ -3,7 +3,7 @@ import os
 from typing import Any, List, Optional
 
 from pydantic import BaseModel
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModel, AutoTokenizer
 from fastserve.core import FastServe
 
 # Configure logger
@@ -38,7 +38,7 @@ class ServeHuggingface(FastServe):
                     or passed as an argument during class instantiation.")
             return None, None
         try:
-            model = AutoModelForCausalLM.from_pretrained(model_name)
+            model = AutoModel.from_pretrained(model_name)
             tokenizer = AutoTokenizer.from_pretrained(model_name)
             logger.info(f"Model and tokenizer for '{model_name}' loaded successfully.")
             return model, tokenizer
