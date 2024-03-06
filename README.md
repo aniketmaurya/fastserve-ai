@@ -106,8 +106,8 @@ terminal.
 
 You can easily serve any HuggingFace Transformer model using FastServe. 
 
-First, ensure you have your HuggingFace API token set up correctly in your environment to access models from HuggingFace Hub.
-
+For some models, it is required to have a HuggingFace API token correctly set up in your environment to access models from the HuggingFace Hub.
+This is not necessary for all models, but you may encounter this requirement, such as accepting terms of use or any other necessary steps. Take a look at your model's page for specific requirements.
 ```
 export HUGGINGFACE_TOKEN=<your hf token>
 ```
