@@ -1,6 +1,6 @@
 # FastServe
 
-<img src="https://ik.imagekit.io/gradsflow/logo/v2/Fastserve/1_JweVuYWWH.png?updatedAt=1709768078904" alt="logo" style="width: 300px">
+<center><img src="https://ik.imagekit.io/gradsflow/logo/v2/Fastserve/1_JweVuYWWH.png?updatedAt=1709768078904" alt="logo" style="width: 300px"></center>
 
 
 Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
