@@ -2,6 +2,7 @@ import argparse
 
 from fastserve.models import ServeImageClassification
 from fastserve.models.face_reco import FaceDetection
+from fastserve.models.huggingface import ServeHuggingFace
 from fastserve.models.llama_cpp import ServeLlamaCpp
 from fastserve.models.sdxl_turbo import ServeSDXLTurbo
 from fastserve.models.ssd import ServeSSD1B
@@ -69,6 +70,13 @@ elif args.model == "llama-cpp":
     )
 elif args.model == "face-detection":
     app = FaceDetection(
+        timeout=args.timeout,
+        batch_size=args.batch_size,
+    )
+elif args.model == "huggingface":
+    app = ServeHuggingFace(
+        model_name=args.model_name,
+        device=device,
         timeout=args.timeout,
         batch_size=args.batch_size,
     )
