@@ -5,7 +5,7 @@ from fastserve.models.face_reco import FaceDetection
 from fastserve.models.llama_cpp import ServeLlamaCpp
 from fastserve.models.sdxl_turbo import ServeSDXLTurbo
 from fastserve.models.ssd import ServeSSD1B
-from fastserve.models.huggingface import ServeHuggingface
+from fastserve.models.huggingface import ServeHuggingFace
 from fastserve.utils import get_default_device
 
 parser = argparse.ArgumentParser(description="Serve models with FastServe")
@@ -74,7 +74,7 @@ elif args.model == "face-detection":
         batch_size=args.batch_size,
     )
 elif args.model == "huggingface":
-    app = ServeHuggingface(
+    app = ServeHuggingFace(
         model_name=args.model_name,
         device=device,
         timeout=args.timeout,

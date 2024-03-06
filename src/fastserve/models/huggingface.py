@@ -16,7 +16,7 @@ class PromptRequest(BaseModel):
     max_tokens: int = 200
     stop: List[str] = []
 
-class ServeHuggingface(FastServe):
+class ServeHuggingFace(FastServe):
     def __init__(self, model_name: str = None, **kwargs):
         # HF authentication
         hf_token = os.getenv("HUGGINGFACE_TOKEN")
