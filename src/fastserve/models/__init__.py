@@ -1,6 +1,5 @@
 from fastserve.models.face_reco import FaceDetection as FaceDetection
 from fastserve.models.huggingface import ServeHuggingFace as ServeHuggingFace
-from fastserve.models.huggingface import ServeHuggingface as ServeHuggingface
 from fastserve.models.image_classification import (
     ServeImageClassification as ServeImageClassification,
 )
