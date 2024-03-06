@@ -118,7 +118,7 @@ from fastserve.models import ServeHuggingFace
 
 # Here, we use "gpt2" as an example. Replace "gpt2" with the name of your desired model.
 # The `model_name` parameter is optional; the class can retrieve it from an environment variable called `HUGGINGFACE_MODEL_NAME`.
-app = ServeHuggingFace(model_name="gpt2") 
+app = ServeHuggingFace(model_name="gpt2")
 app.run_server()
 ```
 
