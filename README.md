@@ -104,7 +104,7 @@ terminal.
 
 ### Serve HuggingFace Models
 
-You can easily serve any HuggingFace Transformer model using FastServe. 
+You can easily serve any HuggingFace Transformer model using FastServe.
 
 For some models, it is required to have a HuggingFace API token correctly set up in your environment to access models from the HuggingFace Hub.
 This is not necessary for all models, but you may encounter this requirement, such as accepting terms of use or any other necessary steps. Take a look at your model's page for specific requirements.
@@ -118,7 +118,11 @@ from fastserve.models import ServeHuggingFace
 
 # Here, we use "gpt2" as an example. Replace "gpt2" with the name of your desired model.
 # The `model_name` parameter is optional; the class can retrieve it from an environment variable called `HUGGINGFACE_MODEL_NAME`.
+<<<<<<< HEAD
 app = ServeHuggingFace(model_name="gpt2") 
+=======
+app = ServeHuggingface(model_name="gpt2")
+>>>>>>> d422dbbb2e2a4303a9b2050811a4ce04b2b2e1b1
 app.run_server()
 ```
 

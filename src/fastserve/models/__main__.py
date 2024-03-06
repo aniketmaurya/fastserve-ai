@@ -2,6 +2,7 @@ import argparse
 
 from fastserve.models import ServeImageClassification
 from fastserve.models.face_reco import FaceDetection
+from fastserve.models.huggingface import ServeHuggingface
 from fastserve.models.llama_cpp import ServeLlamaCpp
 from fastserve.models.sdxl_turbo import ServeSDXLTurbo
 from fastserve.models.ssd import ServeSSD1B
