@@ -24,8 +24,7 @@ class ServeHuggingFace(FastServe):
             from huggingface_hub import HfApi, HfFolder
             HfFolder.save_token(hf_token)  # This saves the token to the Hugging Face configuration folder
         else:
-            print("Environment variable 'HUGGINGFACE_TOKEN' not set.")
-            return None, None
+            print("Environment variable 'HUGGINGFACE_TOKEN' not set. It can be necessary to download some models from Hugging Face Hub.")
 
         self.model, self.tokenizer = self._load_model_and_tokenizer(model_name or os.getenv("HUGGINGFACE_MODEL_NAME"))
         super().__init__(**kwargs)
