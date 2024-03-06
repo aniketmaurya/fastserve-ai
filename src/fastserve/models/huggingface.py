@@ -18,6 +18,7 @@ class PromptRequest(BaseModel):
     max_tokens: int = 200
     stop: List[str] = []
 
+
 class ServeHuggingFace(FastServe):
     def __init__(self, model_name: str = None, **kwargs):
         # HF authentication
@@ -29,7 +30,9 @@ class ServeHuggingFace(FastServe):
                 hf_token
             )  # This saves the token to the Hugging Face configuration folder
         else:
-            print("Environment variable 'HUGGINGFACE_TOKEN' not set. It can be necessary to download some models from Hugging Face Hub.")
+            print(
+                "Environment variable 'HUGGINGFACE_TOKEN' not set. It can be necessary to download some models from Hugging Face Hub."
+            )
 
         self.model, self.tokenizer = self._load_model_and_tokenizer(
             model_name or os.getenv("HUGGINGFACE_MODEL_NAME")
