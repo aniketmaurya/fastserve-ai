@@ -1,4 +1,4 @@
-# FastServe
+# [FastServe](https://github.com/gradsflow/fastserve-ai)
 
 Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
 
@@ -15,7 +15,7 @@ pip install FastServeAI
 
 **Latest:**
 ```shell
-pip install git+https://github.com/aniketmaurya/fastserve.git@main
+pip install git+https://github.com/gradsflow/fastserve-ai.git@main
 ```
 
 ## Run locally
@@ -76,7 +76,7 @@ or, run `python -m fastserve.models --model sdxl-turbo --batch_size 2 --timeout 
 This application comes with an UI. You can access it at [http://localhost:8000/ui](http://localhost:8000/ui) .
 
 
-<img src="https://raw.githubusercontent.com/aniketmaurya/fastserve/main/assets/sdxl.jpg" width=400 style="border: 1px solid #F2F3F5;">
+<img src="https://raw.githubusercontent.com/gradsflow/fastserve-ai/main/assets/sdxl.jpg" width=400 style="border: 1px solid #F2F3F5;">
 
 
 ### Face  Detection
@@ -180,7 +180,7 @@ python fastserve.deploy.lightning --filename main.py \
 
 ## Containerization
 
-To containerize your FastServe application, a Docker example is provided in the `examples/docker-compose-example` directory. The example is about face recognition and includes a `Dockerfile` for creating a Docker image and a `docker-compose.yml` for easy deployment. Here's a quick overview:
+To containerize your FastServe application, a Docker example is provided in the [examples/docker-compose-example](https://github.com/gradsflow/fastserve-ai/tree/main/examples/docker-compose-example) directory. The example is about face recognition and includes a `Dockerfile` for creating a Docker image and a `docker-compose.yml` for easy deployment. Here's a quick overview:
 
 - **Dockerfile**: Defines the environment, installs dependencies from `requirements.txt`, and specifies the command to run your FastServe application.
 - **docker-compose.yml**: Simplifies the deployment of your FastServe application by defining services, networks, and volumes.
@@ -210,7 +210,7 @@ In this example, host, port, and log_level are passed directly to uvicorn.run() 
 **Install in editable mode:**
 
 ```shell
-git clone https://github.com/aniketmaurya/fastserve.git
+git clone https://github.com/gradsflow/fastserve-ai.git
 cd fastserve
 pip install -e .
 ```
@@ -221,7 +221,7 @@ pip install -e .
 git checkout -b ＜new-branch＞
 ```
 
-**Make your changes, commit and [create a PR](https://github.com/aniketmaurya/fastserve/compare).**
+**Make your changes, commit and [create a PR](https://github.com/gradsflow/fastserve-ai/compare).**
 
 
 <!-- ## FAQ
