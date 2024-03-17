@@ -3,7 +3,7 @@ import os
 from typing import Any, List
 
 from pydantic import BaseModel
-from transformers import AutoModel, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from fastserve.core import FastServe
 
@@ -20,7 +20,10 @@ class PromptRequest(BaseModel):
 
 
 class ServeHuggingFace(FastServe):
-    def __init__(self, model_name: str = None, **kwargs):
+    def __init__(self, model_name: str = None, use_gpu: bool = False, **kwargs):
+        # Determine execution mode from environment or explicit parameter
+        self.use_gpu = use_gpu or os.getenv("USE_GPU", "false").lower() in ["true", "1"]
+
         # HF authentication
         hf_token = os.getenv("HUGGINGFACE_TOKEN")
         if hf_token:
@@ -39,8 +42,7 @@ class ServeHuggingFace(FastServe):
         )
         super().__init__(**kwargs)
 
-    @staticmethod
-    def _load_model_and_tokenizer(model_name: str):
+    def _load_model_and_tokenizer(self, model_name: str):
         if not model_name:
             logger.error(
                 "The Hugging Face model name has not been provided. \
@@ -49,7 +51,15 @@ class ServeHuggingFace(FastServe):
             )
             return None, None
         try:
-            model = AutoModel.from_pretrained(model_name)
+            if self.use_gpu:
+                # Load model with GPU support, device_map="auto" enables multi-GPU if available
+                model = AutoModelForCausalLM.from_pretrained(
+                    model_name, device_map="auto"
+                )
+            else:
+                # Load model for CPU execution
+                model = AutoModelForCausalLM.from_pretrained(model_name)
+
             tokenizer = AutoTokenizer.from_pretrained(model_name)
             logger.info(f"Model and tokenizer for '{model_name}' loaded successfully.")
             return model, tokenizer
@@ -62,6 +72,10 @@ class ServeHuggingFace(FastServe):
     def __call__(self, request: PromptRequest) -> Any:
         try:
             inputs = self.tokenizer.encode(request.prompt, return_tensors="pt")
+
+            if self.use_gpu:
+                inputs = inputs.to("cuda")
+
             output = self.model.generate(
                 inputs,
                 max_length=request.max_tokens,
