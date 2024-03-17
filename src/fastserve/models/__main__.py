@@ -76,6 +76,7 @@ elif args.model == "face-detection":
 elif args.model == "huggingface":
     app = ServeHuggingFace(
         model_name=args.model_name,
+        use_gpu=True if args.use_gpu else False,
         device=device,
         timeout=args.timeout,
         batch_size=args.batch_size,
