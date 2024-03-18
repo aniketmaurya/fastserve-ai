@@ -77,7 +77,7 @@ elif args.model == "huggingface":
     app = ServeHuggingFace(
         model_name=args.model_name,
         use_gpu=True if args.use_gpu else False,
-        device=device,
+        device="cuda" if args.use_gpu else device,
         timeout=args.timeout,
         batch_size=args.batch_size,
     )

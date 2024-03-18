@@ -20,9 +20,10 @@ class PromptRequest(BaseModel):
 
 
 class ServeHuggingFace(FastServe):
-    def __init__(self, model_name: str = None, use_gpu: bool = False, **kwargs):
+    def __init__(self, model_name: str = None, use_gpu: bool = False, device="cpu", **kwargs):
         # Determine execution mode from environment or explicit parameter
         self.use_gpu = use_gpu or os.getenv("USE_GPU", "false").lower() in ["true", "1"]
+        self.device = device
 
         # HF authentication
         hf_token = os.getenv("HUGGINGFACE_TOKEN")
@@ -74,7 +75,7 @@ class ServeHuggingFace(FastServe):
             inputs = self.tokenizer.encode(request.prompt, return_tensors="pt")
 
             if self.use_gpu:
-                inputs = inputs.to("cuda")
+                inputs = inputs.to(self.device)
 
             output = self.model.generate(
                 inputs,
