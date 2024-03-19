@@ -1,6 +1,16 @@
-# [FastServe](https://github.com/gradsflow/fastserve-ai)
+<p align="center">
+  <img width="250" alt="logo" src="https://ik.imagekit.io/gradsflow/logo/v2/gf-cover-hd_N3naW2FHA.png?updatedAt=1710282045836"/>
+  <br>
+  <strong>Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.</strong>
+</p>
+<p align="center">
+  <a href="https://fastserve.gradsflow.com">Docs</a> |
+  <a href="https://github.com/gradsflow/fastserve-ai/tree/main/examples">Examples</a>
+</p>
 
-Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
+---
+
+
 
 > [![img_tag](https://img.youtube.com/vi/GfcmyfPB9qY/0.jpg)](https://www.youtube.com/watch?v=GfcmyfPB9qY)
 >
