@@ -23,11 +23,6 @@ pip install FastServeAI
 pip install git+https://github.com/gradsflow/fastserve-ai.git@main
 ```
 
-## Run locally
-
-```bash
-python -m fastserve
-```
 
 ## Usage/Examples
 
