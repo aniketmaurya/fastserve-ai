@@ -10,6 +10,14 @@
 
 ---
 
+<!--- BADGES: START --->
+[![pytest](https://github.com/gradsflow/fastserve-ai/actions/workflows/main.yml/badge.svg)](https://github.com/gradsflow/fastserve-ai/actions/workflows/main.yml)
+[![Deploy Docs](https://github.com/gradsflow/fastserve-ai/actions/workflows/mkdocs_ci.yml/badge.svg)](https://github.com/gradsflow/fastserve-ai/actions/workflows/mkdocs_ci.yml)
+[![Downloads](https://static.pepy.tech/badge/fastserveai/month)](https://pepy.tech/project/fastserveai)
+![Discord](https://img.shields.io/discord/1217220795047346297)
+
+<!--- BADGES: END --->
+
 
 ## Installation
 
