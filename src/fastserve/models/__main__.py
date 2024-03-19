@@ -1,10 +1,10 @@
 import argparse
 
 from fastserve.models import ServeImageClassification
-from fastserve.models.face_reco import FaceDetection
-from fastserve.models.huggingface import ServeHuggingFace
-from fastserve.models.llama_cpp import ServeLlamaCpp
-from fastserve.models.sdxl_turbo import ServeSDXLTurbo
+from fastserve.models.cv.face_reco import FaceDetection
+from fastserve.models.image_gen.sdxl_turbo import ServeSDXLTurbo
+from fastserve.models.llm.huggingface import ServeHuggingFace
+from fastserve.models.llm.llama_cpp import ServeLlamaCpp
 from fastserve.models.ssd import ServeSSD1B
 from fastserve.utils import get_default_device
 
