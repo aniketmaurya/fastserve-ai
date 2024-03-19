@@ -68,7 +68,7 @@ extra:
 nav:
   - Introduction: 'index.md'
   - Image GenAI: fastserve/models/image_gen.md
-  - LLMs: 
+  - LLMs:
       - vLLM: fastserve/models/llms/vllm.md
       - Local LLMs: fastserve/models/llms/local_llms.md
       - HF LLMs: fastserve/models/llms/hf.md
