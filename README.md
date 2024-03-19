@@ -31,13 +31,11 @@ python -m fastserve
 
 ## Usage/Examples
 
-
-<figure>
-  <a href="https://www.youtube.com/watch?v=GfcmyfPB9qY">
+<a href="https://www.youtube.com/watch?v=GfcmyfPB9qY">
     <img src="https://img.youtube.com/vi/GfcmyfPB9qY/0.jpg" width=350px>
-  </a>
-  <figcaption>YouTube: How to serve your own GPT like LLM in 1 minute with FastServe.</figcaption>
-</figure>
+</a>
+
+> YouTube: How to serve your own GPT like LLM in 1 minute with FastServe.
 
 
 ### Serve LLMs with Llama-cpp
