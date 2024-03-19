@@ -1,10 +1,10 @@
 site_name: FastServe
 site_description: 'Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.'
 site_author: Aniket Maurya
-copyright: 'Copyright &copy; 2023 Aniket Maurya'
+copyright: 'Copyright &copy; 2024 Aniket Maurya'
 
-banner_url: https://IMAGE_URL
-repo_url: https://github.com/aniketmaurya/fastserve/
+banner_url: https://ik.imagekit.io/gradsflow/logo/v2/gf-cover-hd_N3naW2FHA.png?updatedAt=1710282045836
+repo_url: https://github.com/gradsflow/fastserve-ai/
 repo_name: aniketmaurya/fastserve
 
 theme:
@@ -60,11 +60,17 @@ plugins:
             show_source: false
 
 extra:
-  homepage: https://github.com/aniketmaurya/fastserve
+  homepage: https://github.com/gradsflow/fastserve-ai
   analytics:
     provider: google
     property: G-B8FPDYGVPR
 
 nav:
   - Introduction: 'index.md'
+  - Image GenAI: fastserve/models/image_gen.md
+  - LLMs: 
+      - vLLM: fastserve/models/llms/vllm.md
+      - Local LLMs: fastserve/models/llms/local_llms.md
+      - HF LLMs: fastserve/models/llms/hf.md
+  - Containerization: fastserve/containerization.md
   - Release Notes: 'CHANGELOG.md'

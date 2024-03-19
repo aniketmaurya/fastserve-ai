@@ -1,42 +1,38 @@
-# FastServe
+<p align="center">
+  <img width="250" alt="logo" src="https://ik.imagekit.io/gradsflow/logo/v2/Gradsflow-gradient_TPwd2H3s4.png?updatedAt=1710283252606"/>
+  <br>
+  <strong>Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.</strong>
+</p>
+<p align="center">
+  <a href="https://fastserve.gradsflow.com">Docs</a> |
+  <a href="https://github.com/gradsflow/fastserve-ai/tree/main/examples">Examples</a>
+</p>
 
-Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.
+---
+
 
 ## Installation
+
+**Stable:**
 ```shell
-pip install git+https://github.com/aniketmaurya/fastserve.git@main
+pip install FastServeAI
 ```
 
-## Run locally
-
-```bash
-python -m fastserve
+**Latest:**
+```shell
+pip install git+https://github.com/gradsflow/fastserve-ai.git@main
 ```
+
 
 ## Usage/Examples
 
-### Serve Mistral-7B with Llama-cpp
+<a href="https://www.youtube.com/watch?v=GfcmyfPB9qY">
+    <img src="https://img.youtube.com/vi/GfcmyfPB9qY/0.jpg" width=350px>
+</a>
 
-```python
-from fastserve.models import ServeLlamaCpp
+> YouTube: How to serve your own GPT like LLM in 1 minute with FastServe.
 
-model_path = "openhermes-2-mistral-7b.Q5_K_M.gguf"
-serve = ServeLlamaCpp(model_path=model_path, )
-serve.run_server()
-```
 
-or, run `python -m fastserve.models --model llama-cpp --model_path openhermes-2-mistral-7b.Q5_K_M.gguf` from terminal.
-
-### Serve SDXL Turbo
-
-```python
-from fastserve.models import ServeSDXLTurbo
-
-serve = ServeSDXLTurbo(device="cuda", batch_size=2, timeout=1)
-serve.run_server()
-```
-
-or, run `python -m fastserve.models --model sdxl-turbo --batch_size 2 --timeout 1` from terminal.
 
 ### Serve Custom Model
 
@@ -45,6 +41,7 @@ returns the response as a list.
 
 ```python
 from fastserve import FastServe
+
 
 class MyModelServing(FastServe):
     def __init__(self):
@@ -56,28 +53,42 @@ class MyModelServing(FastServe):
         response = self.model(inputs)
         return response
 
+
 app = MyModelServing()
 app.run_server()
 ```
 
 You can run the above script in terminal, and it will launch a FastAPI server for your custom model.
 
+## Deploy
+
+### Lightning AI Studio ⚡️
+
+```shell
+python fastserve.deploy.lightning --filename main.py \
+    --user LIGHTNING_USERNAME \
+    --teamspace LIGHTNING_TEAMSPACE \
+    --machine "CPU"  # T4, A10G or A10G_X_4
+```
+
 
 ## Contribute
 
 **Install in editable mode:**
+
 ```shell
-git clone https://github.com/aniketmaurya/fastserve.git
+git clone https://github.com/gradsflow/fastserve-ai.git
 cd fastserve
 pip install -e .
 ```
 
 **Create a new branch**
+
 ```shell
 git checkout -b ＜new-branch＞
 ```
 
-**Make your changes, commit and [create a PR](https://github.com/aniketmaurya/fastserve/compare).**
+**Make your changes, commit and [create a PR](https://github.com/gradsflow/fastserve-ai/compare).**
 
 
 <!-- ## FAQ
