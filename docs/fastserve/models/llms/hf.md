@@ -1,4 +1,4 @@
-# 🤗 Hugging Face 
+# 🤗 Hugging Face
 
 ## Serve HuggingFace Models
 
