@@ -16,6 +16,7 @@
 [![Downloads](https://static.pepy.tech/badge/fastserveai)](https://pepy.tech/project/fastserveai)
 [![Downloads](https://static.pepy.tech/badge/fastserveai/month)](https://pepy.tech/project/fastserveai)
 ![Discord](https://img.shields.io/discord/1217220795047346297?color=orange)
+![GitHub License](https://img.shields.io/github/license/gradsflow/fastserve-ai)
 <!--- BADGES: END --->
 
 
