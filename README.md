@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="250" alt="logo" src="https://ik.imagekit.io/gradsflow/logo/v2/gf-cover-hd_N3naW2FHA.png?updatedAt=1710282045836"/>
+  <img width="250" alt="logo" src="https://ik.imagekit.io/gradsflow/logo/v2/Gradsflow-gradient_TPwd2H3s4.png?updatedAt=1710283252606"/>
   <br>
   <strong>Machine Learning Serving focused on GenAI & LLMs with simplicity as the top priority.</strong>
 </p>
