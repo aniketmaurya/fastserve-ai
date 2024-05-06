@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.21",
+    "vue": "^3.4.22",
     "vuetify": "^3.5.15"
   },
   "devDependencies": {
