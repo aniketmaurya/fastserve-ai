@@ -1,4 +1,5 @@
 import pytest
+
 from fastserve import FastServe
 from fastserve.core import BaseRequest
 

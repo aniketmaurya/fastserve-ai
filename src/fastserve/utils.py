@@ -36,13 +36,16 @@ def download_file(url: str, dest: str):
     response.raise_for_status()
     total_size = int(response.headers.get("content-length", 0))
     block_size = 1024
-    with open(dest, "wb") as file, tqdm(
-        desc=dest,
-        total=total_size,
-        unit="iB",
-        unit_scale=True,
-        unit_divisor=1024,
-    ) as bar:
+    with (
+        open(dest, "wb") as file,
+        tqdm(
+            desc=dest,
+            total=total_size,
+            unit="iB",
+            unit_scale=True,
+            unit_divisor=1024,
+        ) as bar,
+    ):
         for data in response.iter_content(block_size):
             file.write(data)
             bar.update(len(data))
