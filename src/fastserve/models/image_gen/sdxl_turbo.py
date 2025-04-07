@@ -6,9 +6,10 @@ from typing import List
 import torch
 from diffusers import AutoPipelineForText2Image
 from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+
 from fastserve import FastServe
 from fastserve.utils import get_ui_folder
-from pydantic import BaseModel
 
 
 class PromptRequest(BaseModel):
